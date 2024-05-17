@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import pytz
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Date, DateTime, Float
@@ -17,6 +17,12 @@ app.config.update(
 
 db = SQLAlchemy(app)
 
+
+#Home route
+@app.route('/')
+def hello_flask():
+    return 'Hello!'
+
 class Users(db.Model):
     __tablename__= 'users'
     
@@ -28,6 +34,7 @@ class Users(db.Model):
     birth_date = db.Column(db.Date, nullable = False)
     creation_date = db.Column(db.DateTime, default=lambda: datetime.now(pytz.timezone('Europe/Warsaw')))
     
+    #Relationship
     publications = db.relationship('Publications', backref='creator', lazy=True)
     
     
