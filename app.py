@@ -10,8 +10,8 @@ import psycopg2
 app = Flask(__name__)
 
 app.config.update(
-    SECRET_KEY='Jura0210',
-    SQLALCHEMY_DATABASE_URI='postgresql://postgres:Jura0210@localhost/event_db',
+    SECRET_KEY='admin',
+    SQLALCHEMY_DATABASE_URI='postgresql://postgres:admin@localhost/event_db',
     SQLALCHEMY_TRACK_MODIFICATIONS=False
 )
 
