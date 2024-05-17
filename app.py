@@ -9,6 +9,7 @@ import psycopg2
 
 app = Flask(__name__)
 
+# Config
 app.config.update(
     SECRET_KEY='admin',
     SQLALCHEMY_DATABASE_URI='postgresql://postgres:admin@localhost/event_db',
@@ -18,11 +19,12 @@ app.config.update(
 db = SQLAlchemy(app)
 
 
-#Home route
+# Home route
 @app.route('/')
 def hello_flask():
     return 'Hello!'
 
+# Model of Users table
 class Users(db.Model):
     __tablename__= 'users'
     
@@ -34,7 +36,7 @@ class Users(db.Model):
     birth_date = db.Column(db.Date, nullable = False)
     creation_date = db.Column(db.DateTime, default=lambda: datetime.now(pytz.timezone('Europe/Warsaw')))
     
-    #Relationship
+# Relationship
     publications = db.relationship('Publications', backref='creator', lazy=True)
     
     
@@ -49,7 +51,7 @@ class Users(db.Model):
     def __repr__(self) -> str:
         return 'The id is {}, login {}, name {} {}, date of birth {} and creation date {}'.format(self.id, self.login, self.first_name, self.last_name, self.birth_date, self.creation_date)
     
-    
+# Model of Publications table    
 class Publications(db.Model):
     __tablename__ = 'publications'
     
