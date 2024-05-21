@@ -11,7 +11,7 @@ def create_app(config_name):
 
     db.init_app(app)
 
-    from app.routes import main as main_blueprint
+    from app.routes.main_routes import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
     return app

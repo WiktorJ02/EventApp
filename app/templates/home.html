@@ -3,36 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
+  <title>Publications</title>
 </head>
 <body>
-    <h1>Movie collection</h1>
-    <table>
-        <tr>
-            <th>movie</th>
-            <th>length</th>
-            <th>comments</th>
-
-          {% for movie, length in movies.items()  %}
-
-          <tr>
-            <td>{{ movie }}</td>
-            <td>{{ length }}</td>
-            {% if length <= 2 %}
-              <td>short</td>
-            {% elif length > 2 and length < 3 %}https://www.google.com/search?q=postgresql&sourceid=chrome&ie=UTF-8
-             <td>medium</td>
-            {% else %}
-              <td>long</td>
-             
-           {% endif %}
-            
-          </tr>
-          {% endfor %}
-        </tr>
-    </table>
-
-  
-
+    <h1>Publications Page</h1>
+    
 </body>
 </html>
