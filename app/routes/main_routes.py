@@ -6,8 +6,12 @@ from flask import render_template
 
 @main.route('/')
 def home():
-    return "Welcome to the Home Page"
-
-@main.route('/about')
-def about():
-    return "About Page"
+    publications = Publications.query.all()
+    
+    
+    for pub in publications:
+        user = Users.query.get(pub.creating_user_id)
+        pub.creating_user_first_name = user.first_name
+        pub.creating_user_last_name = user.last_name
+    
+    return render_template('home.html', publications = publications)

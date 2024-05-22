@@ -7,6 +7,11 @@
 </head>
 <body>
     <h1>Publications Page</h1>
-    
+  {% for pub in Publications %}
+    <h4>Title: {{ pub.name }}</h4>
+    <p>Descriptiom: {{ pub.description }}</p>
+    <p>Price: {{ pub.price }}</p>
+    <p>Creating user: {{ pub.creating_user_first_name}} {{ pub.creating_user_last_name }}</p>
+  {% endfor %}
 </body>
 </html>
