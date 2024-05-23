@@ -15,3 +15,12 @@ def home():
         pub.creating_user_last_name = user.last_name
     
     return render_template('home.html', publications = publications)
+
+
+@main.route('/users/<user_id>')
+def display_user(user_id):
+        
+    user = Users.query.filter_by(id = user_id).first()
+    user_publications = Publications.query.filter_by(creating_user_id = user_id).all()
+        
+    return render_template('user.html', user = user, user_publications = user_publications)
