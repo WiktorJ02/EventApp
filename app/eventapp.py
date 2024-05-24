@@ -1,5 +1,4 @@
 from app import main
-from app import db
 from app.models.users import Users
 from app.models.publications  import Publications 
 from flask import render_template

@@ -15,9 +15,13 @@ def create_app(config_name):
 
     from app.eventapp import main as main_blueprint
     app.register_blueprint(main_blueprint)
+    
+    from app.auth import at as at_blueprint
+    app.register_blueprint(at_blueprint)
 
     return app
 
 main = Blueprint('main', __name__)
+authentication = Blueprint('authentication', __name__)
 
 from app import eventapp
