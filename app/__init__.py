@@ -1,5 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask import Blueprint
+
 
 db = SQLAlchemy()
 
@@ -11,7 +13,11 @@ def create_app(config_name):
 
     db.init_app(app)
 
-    from app.routes.main_routes import main as main_blueprint
+    from app.eventapp import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
     return app
+
+main = Blueprint('main', __name__)
+
+from app import eventapp

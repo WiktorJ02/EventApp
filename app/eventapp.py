@@ -1,4 +1,4 @@
-from app.routes import main
+from app import main
 from app import db
 from app.models.users import Users
 from app.models.publications  import Publications 
