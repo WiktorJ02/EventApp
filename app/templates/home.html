@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Publications</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block content %}
     <h1>Publications Page</h1>
   {% for pub in publications %}
     <h4>Title: {{ pub.name }}</h4>
@@ -13,5 +7,4 @@
     <p>Price: {{ pub.price }}</p>
     <p>Creating user: {{ pub.creating_user_first_name}} {{ pub.creating_user_last_name }}</p>
   {% endfor %}
-</body>
-</html>
+  {% endblock content %}
