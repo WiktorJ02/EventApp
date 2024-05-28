@@ -6,8 +6,6 @@ from wtforms.validators import DataRequired, Email, Length, EqualTo
 from app import authentication as at, db
 from app.models.users import Users
 from flask_bcrypt import Bcrypt
-from datetime import datetime
-import pytz
 import traceback
 
 bcrypt = Bcrypt()
@@ -32,7 +30,6 @@ def register_user():
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
             new_user = Users(
             login = form.login.data,
-            confirm = form.confirm.data,
             password = hashed_password,
             email = form.email.data,
             first_name = form.first_name.data,
@@ -41,8 +38,7 @@ def register_user():
         )
             db.session.add(new_user)
             db.session.commit()
-            flash('Form successfully submitted')
-            return 'Form successfully submitted'
+            return render_template('auth/congrats.html')
         except Exception as e:
             db.session.rollback()
             print(f'error {e}')
@@ -51,3 +47,13 @@ def register_user():
     else:
         print(form.errors)
     return render_template('auth/registration.html', form=form)
+
+class LoginForm(FlaskForm):
+    login = StringField('Login', validators=[DataRequired(), Length(min=4, max=32)])
+    password = PasswordField('Password', validators=[DataRequired()]) 
+    submit = SubmitField('Sign in')
+#login route
+@at.route('/login', methods=['GET', 'POST'])
+def login_user():
+    form = LoginForm()
+    return render_template("auth/login.html", form = form)

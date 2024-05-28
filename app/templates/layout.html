@@ -1,3 +1,5 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +10,7 @@
             <meta charset="UTF-8">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
-            <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+            <link rel="stylesheet" href="static/css/style.css">
         </head>
     {% endblock head %}
 
@@ -25,14 +27,16 @@
                 <ul class="nav navbar-nav pull-right nav-list">
                     <li><a href="/"> Home </a></li>
                     <li><a href="/register"> Register </a></li>
-                    <li><a href=""> Sign In </a></li>
+                    <li><a href="/login"> Sign In </a></li>
                 </ul>
             </div>
         </nav>
         {% endblock navbar %}
 
-        {# empty block for custom content #}
+        {# block for content #}
+        <main class = "content">
         {% block content %} {% endblock content %}
+        </main>
 
         {# footer #}
         {% block footer %}
