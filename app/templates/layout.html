@@ -35,15 +35,17 @@
 
         {# block for content #}
         <main class = "content">
-        {% block content %} {% endblock content %}
+        {% block content %}
+        
+        {% endblock content %}
         </main>
 
         {# footer #}
         {% block footer %}
-        <footer>
-            <div class="container ftr">
+        <footer class="ftr">
+            <div class="container">
                 <hr>
-                <p class="text-center small"> Event App &copy;	| 2024 </p>
+                <p class="text-center small"> Event App &copy; | 2024 </p>
             </div>
         </footer>
         {% endblock footer %}

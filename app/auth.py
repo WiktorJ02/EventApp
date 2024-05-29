@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.fields import DateField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
-from app import authentication as at, db
+from app import authentication as at, db 
 from app.models.users import Users
 from flask_bcrypt import Bcrypt
 import traceback
@@ -36,11 +36,11 @@ def password_strength(form, field):
         raise ValidationError('Password must contain at least one uppercase letter.')
     if not re.search(r'\d', password):
         raise ValidationError('Password must contain at least one number.')
-    
+
 # registration form
 class RegistrationForm(FlaskForm):
     login = StringField('Login', validators=[DataRequired(), Length(min=4, max=32), login_exists])
-    password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm', message = 'Passwords must match'), password_strength])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=8, max=60), EqualTo('confirm', message = 'Passwords must match'), password_strength])
     confirm = PasswordField('Repeat password', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email(), Length(min=4, max=32), email_exists])
     first_name = StringField('Name', validators=[DataRequired(), Length(min=2, max=32)])
@@ -70,7 +70,7 @@ def register_user():
             db.session.rollback()
             print(f'error {e}')
             print(traceback.format_exc())
-            flash('Error!!!!')
+            flash('Something went worng :(')
     else:
         print(form.errors)
     return render_template('auth/registration.html', form=form)

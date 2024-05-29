@@ -37,8 +37,8 @@ class Users(db.Model):
         
     
     def check_password(self, password):
-        return bcrypt.check_password_hash(self.password, password)
-    
+        result = bcrypt.check_password_hash(self.password, password)
+        
     @login_manager.user_loader
     def load_user(id):
         return Users.query.get(int(id))

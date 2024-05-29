@@ -2,7 +2,7 @@
 
 
 {% block content %}
-    <h2 class = "form"> Registration </h2>
+    <h2 class = "form"> Sign in </h2>
     <div class = "container form">
         <hr>
         <br>
@@ -16,6 +16,8 @@
             {% endif %}
         {% endwith %}
         {{ form.hidden_tag() }}
-        {{ wtf.quick_form(form) }} 
+        {{ wtf.quick_form(form) }}
+
+       
     
 {% endblock content %}

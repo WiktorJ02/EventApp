@@ -8,6 +8,8 @@ from flask_login import LoginManager
 db = SQLAlchemy()
 bootstrap = Bootstrap()
 login_manager = LoginManager()
+login_manager.login_view = 'login.user_login'
+login_manager.session_protection = 'strong'
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -24,10 +26,14 @@ def create_app(config_name):
     
     from app.auth import at as at_blueprint
     app.register_blueprint(at_blueprint)
+    
+    from app.login import signin as singin_blueprint
+    app.register_blueprint(singin_blueprint)
 
     return app
 
 main = Blueprint('main', __name__)
 authentication = Blueprint('authentication', __name__)
+signin = Blueprint('login', __name__)
 
-from app import eventapp
+from app import eventapp, auth, login
