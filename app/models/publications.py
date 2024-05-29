@@ -24,5 +24,3 @@ class Publications(db.Model):
         self.creating_user_id = creating_user_id
         self.image = image
         
-    def __repr__(self) -> str:
-        return 'The id is {}, name {}, description {}, price {} and creation date {}'.format(self.id, self.name, self.description, self.price, self.creation_date)

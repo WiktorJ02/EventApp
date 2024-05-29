@@ -1,7 +1,9 @@
-from app import db
+from app import db, login_manager
 import pytz
 from datetime import datetime
 from flask_bcrypt import Bcrypt
+from flask_login import UserMixin
+
 
 bcrypt = Bcrypt()
 
@@ -10,13 +12,14 @@ class Users(db.Model):
     __tablename__= 'users'
     
     id = db.Column(db.Integer, primary_key = True)
-    login = db.Column(db.String(32), nullable = False, unique = 1)
-    password = db.Column(db.String(60), nullable = False) # length is 60, because bcrypt hash has this length
-    email = db.Column(db.String(60), nullable = False)
+    login = db.Column(db.String(32), nullable = False, unique = True)
+    password = db.Column(db.String(60), nullable = False) # length is 60, because hashed password has this length
+    email = db.Column(db.String(60), nullable = False, unique = True)
     first_name = db.Column(db.String(32), nullable = False)
     last_name = db.Column(db.String(32), nullable = False)
     birth_date = db.Column(db.Date, nullable = False)
     creation_date = db.Column(db.DateTime, default=lambda: datetime.now(pytz.timezone('Europe/Warsaw')))
+    last_login = db.Column(db.DateTime, nullable=True)
     
 # Relationship
     created_publications = db.relationship('Publications', backref='creator', lazy=True, foreign_keys='Publications.creating_user_id')
@@ -32,8 +35,10 @@ class Users(db.Model):
         self.last_name = last_name
         self.birth_date = birth_date
         
-    def __repr__(self) -> str:
-        return 'The id is {}, login {}, email{}, name {} {}, date of birth {} and creation date {}'.format(self.id, self.login, self.email, self.first_name, self.last_name, self.birth_date, self.creation_date)
     
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password, password)
+    
+    @login_manager.user_loader
+    def load_user(id):
+        return Users.query.get(int(id))
