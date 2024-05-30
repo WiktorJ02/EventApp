@@ -42,3 +42,18 @@ class Users(db.Model):
     @login_manager.user_loader
     def load_user(id):
         return Users.query.get(int(id))
+    
+    def get_id(self):
+        return str(self.id)
+
+    @property
+    def is_active(self):
+        return True 
+    
+    @property
+    def is_authenticated(self):
+        return True
+    
+    @property
+    def is_anonymous(self):
+        return False

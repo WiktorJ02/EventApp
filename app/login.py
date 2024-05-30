@@ -24,7 +24,6 @@ def user_login():
         user = Users.query.filter_by(login=form.login.data).first()
         if not user or not user.check_password(form.password.data):
             flash('Invalid credentials. Please try again')
-            return render_template("auth/signin.html", form=form)
         login_user(user, form.stay_logged_in.data)
         return redirect(url_for('/'))
          
