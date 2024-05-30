@@ -28,3 +28,7 @@ body {
     padding: 10px;
     text-align: center;
 }
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 300px;
+}

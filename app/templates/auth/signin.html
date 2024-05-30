@@ -1,23 +1,11 @@
 {% extends 'layout.html' %}
 
+{% block title %} SignIn {% endblock %}
 
 {% block content %}
-    <h2 class = "form"> Sign in </h2>
-    <div class = "container form">
-        <hr>
-        <br>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <div class="flashes">
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-                </div>
-            {% endif %}
-        {% endwith %}
-        {{ form.hidden_tag() }}
-        {{ wtf.quick_form(form) }}
-
-       
-    
+    <div class="container login-msg">
+    <h4 class=> Login Here </h4>
+    <hr><br>
+        <div> {{ wtf.quick_form(form) }} </div>
+    </div>
 {% endblock content %}
