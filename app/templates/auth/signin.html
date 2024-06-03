@@ -1,11 +1,17 @@
 {% extends 'layout.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %} SignIn {% endblock %}
 
 {% block content %}
     <div class="container login-msg">
-    <h4 class=> Login Here </h4>
-    <hr><br>
-        <div> {{ wtf.quick_form(form) }} </div>
-    </div>
-{% endblock content %}
+        <h4> Login Here </h4>
+        <hr><br>
+        <form method="POST" action="{{ url_for('login.user_login') }}">
+            {{ form.hidden_tag() }}
+            <div class = "container form">
+                <hr>
+                <br>
+                <div> {{ wtf.quick_form(form) }} </div>
+                </div>
+{% endblock %}

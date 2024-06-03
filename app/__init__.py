@@ -27,13 +27,10 @@ def create_app(config_name):
     from app.auth import at as at_blueprint
     app.register_blueprint(at_blueprint)
     
-    from app.login import signin as singin_blueprint
-    app.register_blueprint(singin_blueprint)
+    from app.login import login as login_blueprint
+    app.register_blueprint(login_blueprint)
 
     return app
 
-main = Blueprint('main', __name__)
-authentication = Blueprint('authentication', __name__)
-signin = Blueprint('login', __name__)
 
-from app import eventapp, auth, login
+

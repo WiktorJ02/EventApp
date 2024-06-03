@@ -1,7 +1,9 @@
-from app import main
 from app.models.users import Users
 from app.models.publications  import Publications 
-from flask import render_template
+from flask import Blueprint, render_template
+
+main = Blueprint('main', __name__)
+
 
 @main.route('/')
 def home():
