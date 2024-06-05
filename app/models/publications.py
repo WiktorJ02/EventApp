@@ -3,6 +3,7 @@ import pytz
 from datetime import datetime
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy import func
+from ratings import Ratings 
 
 # Model of Publications table    
 class Publications(db.Model):

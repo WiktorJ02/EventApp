@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length
 from app import login, create_app
-from app.models.users import Users  # Ensure this path is correct
+from app.models.users import Users
 from flask_bcrypt import Bcrypt
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -33,12 +33,12 @@ def user_login():
             print("Password is correct")
             login_user(user, remember=form.stay_logged_in.data)
             flash('Login successful!')
-            next_page = request.args.get('next')  # Change to 'next'
-            return redirect(next_page or url_for('main.home'))  # Ensure you have a route named 'main.index'
+            next_page = request.args.get('next') 
+            return redirect(next_page or url_for('main.home'))  
         else:
             print("Invalid credentials")
             flash('Invalid credentials. Please try again.', 'error')
-            return redirect(url_for('login.user_login'))  # Ensure you have a blueprint named 'login'
+            return redirect(url_for('login.user_login'))  
     else:
         print("Form validation failed")
         print("Form errors:", form.errors)
@@ -54,7 +54,7 @@ def user_logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('main.home'))
 
-# Before request to set g.user
+# Setting user login
 @login.before_request
 def before_request():
     g.user = current_user if current_user.is_authenticated else None
