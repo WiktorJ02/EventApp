@@ -57,7 +57,7 @@ def register_user():
         try:
             new_user = Users(
                 login=form.login.data,
-                password=form.password.data,  # Pass the raw password, hashing is handled in the model
+                password=form.password.data, 
                 email=form.email.data,
                 first_name=form.first_name.data,
                 last_name=form.last_name.data,
@@ -67,7 +67,7 @@ def register_user():
             db.session.add(new_user)
             db.session.commit()
 
-            return render_template('auth/congrats.html')
+            return redirect(url_for('login.user_login')), flash('Congratulations! You can Log-In :)')
         except Exception as e:
             db.session.rollback()
             print(f'Error: {e}')
@@ -79,3 +79,5 @@ def register_user():
         print(form.errors)
     
     return render_template('auth/registration.html', form=form)
+
+

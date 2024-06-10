@@ -6,12 +6,11 @@
 {% block content %}
     <div class="container login-msg">
         <h2> Login Here </h2>
-        <hr><br>
+        <hr>
+        <br>
         <form method="POST" action="{{ url_for('login.user_login') }}">
             {{ form.hidden_tag() }}
             <div class = "container form">
-                <hr>
-                <br>
                 <div> {{ wtf.quick_form(form) }} </div>
                 </div>
 {% endblock %}
