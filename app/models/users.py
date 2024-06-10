@@ -12,7 +12,7 @@ class Users(db.Model, UserMixin):
     
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String(32), nullable=False, unique=True)
-    password_hash = db.Column(db.String(60), nullable=False)  # Hashed password
+    password_hash = db.Column(db.String(128), nullable=False)  # Increase length for hashed password
     email = db.Column(db.String(60), nullable=False, unique=True)
     first_name = db.Column(db.String(32), nullable=False)
     last_name = db.Column(db.String(32), nullable=False)
@@ -22,15 +22,17 @@ class Users(db.Model, UserMixin):
     
     # Relationships
     created_publications = db.relationship('Publications', backref='creator', lazy=True, foreign_keys='Publications.creating_user_id')
-    accepted_publications = db.relationship('Publications', backref='accepter', lazy=True, foreign_keys='Publications.accepting_user_id')
     
     def __init__(self, login, password, email, first_name, last_name, birth_date):
         self.login = login
-        self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+        self.set_password(password)
         self.email = email
         self.first_name = first_name
         self.last_name = last_name
         self.birth_date = birth_date
+        
+    def set_password(self, password):
+        self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
     
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password_hash, password)

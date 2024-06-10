@@ -16,32 +16,21 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()]) 
     stay_logged_in = BooleanField('Remember me')
     submit = SubmitField('Login')
-    
+
 # login route
 @login.route('/login', methods=['GET', 'POST'])
 def user_login():
     form = LoginForm()
     if form.validate_on_submit():
-        print("Form data:", form.data)
         user = Users.query.filter_by(login=form.login.data).first()
-        if user:
-            print("User found:", user.login)
-        else:
-            print("User not found")
-
         if user and user.check_password(form.password.data):
-            print("Password is correct")
             login_user(user, remember=form.stay_logged_in.data)
             flash('Login successful!')
-            next_page = request.args.get('next') 
-            return redirect(next_page or url_for('main.home'))  
+            next_page = request.args.get('next')
+            return redirect(next_page or url_for('main.home'))
         else:
-            print("Invalid credentials")
             flash('Invalid credentials. Please try again.', 'error')
-            return redirect(url_for('login.user_login'))  
-    else:
-        print("Form validation failed")
-        print("Form errors:", form.errors)
+            return redirect(url_for('login.user_login'))
     return render_template("auth/signin.html", form=form)
 
 # Logout route
@@ -58,7 +47,7 @@ def user_logout():
 @login.before_request
 def before_request():
     g.user = current_user if current_user.is_authenticated else None
-    
+
 @login.route('/profile')
 @login_required
 def user_profile():

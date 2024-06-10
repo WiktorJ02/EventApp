@@ -55,25 +55,18 @@ def register_user():
     form = RegistrationForm()
     if form.validate_on_submit():
         try:
-            print("Form validated successfully")
-            print("Form Data:", form.data)
-            
-            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            print("Hashed Password:", hashed_password)
-            
             new_user = Users(
                 login=form.login.data,
-                password_hash=hashed_password,  # Use password_hash here
+                password=form.password.data,  # Pass the raw password, hashing is handled in the model
                 email=form.email.data,
                 first_name=form.first_name.data,
                 last_name=form.last_name.data,
                 birth_date=form.birth_date.data,
             )
-            print("New User Object Created:", new_user)
-            
+
             db.session.add(new_user)
             db.session.commit()
-            print("User added to the database")
+
             return render_template('auth/congrats.html')
         except Exception as e:
             db.session.rollback()
@@ -84,5 +77,5 @@ def register_user():
     else:
         print("Form validation failed")
         print(form.errors)
-        
+    
     return render_template('auth/registration.html', form=form)
