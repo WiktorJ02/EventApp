@@ -51,4 +51,4 @@ def before_request():
 @login.route('/profile')
 @login_required
 def user_profile():
-    return render_template('user.html')
+    return render_template('my_profile.html')

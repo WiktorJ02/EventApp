@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h2>Publication Details</h2>
+    <div class="publication-details">
+        <img src="{{ publication.image }}" alt="Image of {{ publication.name }}">
+        <h3>{{ publication.name }}</h3>
+        <p>Description: {{ publication.description }}</p>
+        <p>Price: {{ publication.price }}</p>
+        <p>Localization: {{ publication.localization }}</p>
+        <p>Creation Date: {{ publication.creation_date }}</p>
+        <p>Creator: {{ creator.first_name }} {{ creator.last_name }}</p>
+    </div>
+{% endblock content %}

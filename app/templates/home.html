@@ -1,10 +1,23 @@
 {% extends 'layout.html' %}
 {% block content %}
     <h2>Publications Page</h2>
-  {% for pub in publications %}
-    <h4>Title: {{ pub.name }}</h4>
-    <p>Descriptiom: {{ pub.description }}</p>
-    <p>Price: {{ pub.price }}</p>
-    <p>Creating user: {{ pub.creating_user_first_name}} {{ pub.creating_user_last_name }}</p>
-  {% endfor %}
-  {% endblock content %}
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('main.create_publication') }}" class="btn btn-primary">Create Publication</a>
+    {% endif %}
+    <div class="container">
+      <div class="row">
+          {% for pub in publications %}
+              <div class="col-md-4">
+                  <a href="{{ url_for('main.publication_details', pub_id=pub.id) }}" class="publication-link">
+                      <div class="publication-item">
+                          <h4>{{ pub.name }}</h4>
+                          <p>{{ pub.description }}</p>
+                          <p>Price: {{ pub.price }}</p>
+                          <p>Creating user: {{ pub.creating_user_first_name }} {{ pub.creating_user_last_name }}</p>
+                      </div>
+                  </a>
+              </div>
+          {% endfor %}
+      </div>
+  </div>
+{% endblock content %}

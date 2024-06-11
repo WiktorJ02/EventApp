@@ -33,3 +33,21 @@ body {
 .form-group input[type="date"] {
     width: 300px;
 }
+
+.publication-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.publication-item {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+    height: 100%;  /* Make sure each item has the same height */
+}
+
+.publication-item:hover {
+    background-color: #f9f9f9;
+    cursor: pointer;
+}

@@ -5,13 +5,11 @@
 <head>
     <title>EventApp</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 {% endblock head %}
 
@@ -27,27 +25,25 @@
                 {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('login.user_profile') }}">My Profile</a></li>
                 <li><a href="{{ url_for('login.user_logout') }}">Logout</a></li>
-                {% else %}
+            {% else %}
                 <li><a href="{{ url_for('at.register_user') }}">Register</a></li>
                 <li><a href="{{ url_for('login.user_login') }}">Sign In</a></li>
-                {% endif %}
+            {% endif %}
             </ul>
         </div>
     </nav>
     {% endblock navbar %}
 
     {% for message in get_flashed_messages() %}
-    <div class="container alert alert-info alert-dismissible fade in" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <div class="container alert alert-info">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
         {{ message }}
     </div>
     {% endfor %}
 
     <main class="content">
-        {% block content %}
-        {% endblock content %}
+    {% block content %}
+    {% endblock content %}
     </main>
 
     {% block footer %}
@@ -59,11 +55,6 @@
     </footer>
     {% endblock footer %}
 </div>
-
-<!-- jQuery and Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 {% endblock body %}
 </html>

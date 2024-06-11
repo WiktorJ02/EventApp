@@ -19,13 +19,14 @@ class Publications(db.Model):
     image = db.Column(db.String(100))
     is_visible = db.Column(db.Boolean, default=True)
     
-    def __init__(self, name, description, price, localization, image):
+    def __init__(self, name, description, price, localization, image, creating_user_id):
         
         self.name = name
         self.description = description
         self.price = price
         self.localization = localization
         self.image = image
+        self.creating_user_id = creating_user_id
         
         
     # @hybrid_property
