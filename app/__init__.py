@@ -28,6 +28,9 @@ def create_app(config_name):
     
     from app.login import login as login_blueprint
     app.register_blueprint(login_blueprint)
+    
+    from app.admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint)
 
     return app
 

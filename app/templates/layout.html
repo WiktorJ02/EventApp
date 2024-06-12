@@ -23,12 +23,15 @@
             <ul class="nav navbar-nav pull-right nav-list">
                 <li><a href="{{ url_for('main.home') }}">Home</a></li>
                 {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('login.user_profile') }}">My Profile</a></li>
-                <li><a href="{{ url_for('login.user_logout') }}">Logout</a></li>
-            {% else %}
-                <li><a href="{{ url_for('at.register_user') }}">Register</a></li>
-                <li><a href="{{ url_for('login.user_login') }}">Sign In</a></li>
-            {% endif %}
+                    <li><a href="{{ url_for('login.user_profile') }}">My Profile</a></li>
+                    <li><a href="{{ url_for('login.user_logout') }}">Logout</a></li>
+                    {% if current_user.is_admin %}
+                        <li><a href="{{ url_for('admin.user_list') }}">User List</a></li>
+                    {% endif %}
+                {% else %}
+                    <li><a href="{{ url_for('at.register_user') }}">Register</a></li>
+                    <li><a href="{{ url_for('login.user_login') }}">Sign In</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>

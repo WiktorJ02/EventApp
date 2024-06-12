@@ -25,13 +25,14 @@ class Users(db.Model, UserMixin):
     # Relationships
     created_publications = db.relationship('Publications', backref='creator', lazy=True, foreign_keys='Publications.creating_user_id')
     
-    def __init__(self, login, password, email, first_name, last_name, birth_date):
+    def __init__(self, login, password, email, first_name, last_name, birth_date, is_admin):
         self.login = login
         self.set_password(password)
         self.email = email
         self.first_name = first_name
         self.last_name = last_name
         self.birth_date = birth_date
+        self.is_admin = is_admin
         
     def set_password(self, password):
         self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
