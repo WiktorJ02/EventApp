@@ -9,5 +9,31 @@
         <p>Localization: {{ publication.localization }}</p>
         <p>Creation Date: {{ publication.creation_date }}</p>
         <p>Creator: {{ creator.first_name }} {{ creator.last_name }}</p>
+        <p>Average Rating: {{ publication.average_rating or 0 }}</p>
     </div>
+    <h3>Ratings:</h3>
+    {% for rating in ratings %}
+        <div class="rating-box">
+            <p>Rating: {{ rating.rating }}</p>
+            <p>Comment: {{ rating.comment }}</p>
+            <p>By: {{ rating.creating_user.first_name }} {{ rating.creating_user.last_name }} on {{ rating.creation_date.strftime('%Y-%m-%d') }}</p>
+        </div>
+    {% endfor %}
+
+    {% if current_user.is_authenticated %}
+        <h3>Leave a Rating:</h3>
+        <form method="post">
+            <div class="form-group">
+                <label for="rating">Rating (1-5):</label>
+                <input type="number" id="rating" name="rating" class="form-control" min="1" max="5" required>
+            </div>
+            <div class="form-group">
+                <label for="comment">Comment:</label>
+                <textarea id="comment" name="comment" class="form-control" maxlength="300" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    {% else %}
+        <p>You need to be logged in to leave a rating.</p>
+    {% endif %}
 {% endblock content %}

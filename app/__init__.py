@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import Blueprint
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 bootstrap = Bootstrap()
@@ -19,6 +20,8 @@ def create_app(config_name):
     db.init_app(app)
     bootstrap.init_app(app)
     login_manager.init_app(app)
+    migrate = Migrate(app, db)
+
 
     from app.eventapp import main as main_blueprint
     app.register_blueprint(main_blueprint)
@@ -35,4 +38,4 @@ def create_app(config_name):
     return app
 
 
-
+    

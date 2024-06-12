@@ -5,6 +5,7 @@ from flask_login import login_required, current_user
 from app import db
 from app.create_pub import PublicationForm
 from app.models.publications import Publications
+from app.models.ratings import Ratings
 
 
 main = Blueprint('main', __name__)
@@ -20,13 +21,6 @@ def home():
         pub.creating_user_last_name = user.last_name
     
     return render_template('home.html', publications=publications)
-
-@main.route('/user/<user_id>')
-def display_user(user_id):
-    user = Users.query.filter_by(id=user_id).first()
-    user_publications = Publications.query.filter_by(creating_user_id=user_id, is_visible=True).all()
-    
-    return render_template('user.html', user=user, user_publications=user_publications)
 
 @main.route('/create_publication', methods=['GET', 'POST'])
 @login_required
@@ -49,7 +43,27 @@ def create_publication():
 
 
 @main.route('/publication/<int:pub_id>')
-def publication_details(pub_id):
+def publication_detail(pub_id):
     publication = Publications.query.get_or_404(pub_id)
+    if request.method == 'POST':
+        if not current_user.is_authenticated:
+            flash('You need to be logged in to rate publications.', 'error')
+            return redirect(url_for('main.publication_detail', pub_id=pub_id))
+        
+        rating = int(request.form.get('rating'))
+        comment = request.form.get('comment')
+
+        if rating < 1 or rating > 5:
+            flash('Rating must be between 1 and 5.', 'error')
+            return redirect(url_for('main.publication_detail', pub_id=pub_id))
+
+        new_rating = Ratings(rating=rating, comment=comment, user_id=current_user.id, publication_id=pub_id)
+        db.session.add(new_rating)
+        db.session.commit()
+
+        flash('Your rating has been submitted!', 'success')
+        return redirect(url_for('main.publication_detail', pub_id=pub_id))
+
+    ratings = Ratings.query.filter_by(publication_id=pub_id).all()
     creator = Users.query.get(publication.creating_user_id)
-    return render_template('publication_details.html', publication=publication, creator=creator)
+    return render_template('publication_details.html', publication=publication, ratings=ratings, creator=creator)
