@@ -1,0 +1,10 @@
+Flask
+Flask-SQLAlchemy
+Flask-Bootstrap
+Flask-Login
+Flask-Migrate
+Flask-WTF
+WTForms
+Flask-Bcrypt
+psycopg2
+pytz               

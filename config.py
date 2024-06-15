@@ -1,6 +1,6 @@
 class Config:
-    SECRET_KEY = 'admin'
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:admin@localhost/event_db'
+    SECRET_KEY = '1234'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:1234@localhost/event_db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class DevelopmentConfig(Config):
