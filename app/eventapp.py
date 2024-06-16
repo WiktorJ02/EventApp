@@ -20,7 +20,7 @@ def home():
         pub.creating_user_first_name = user.first_name
         pub.creating_user_last_name = user.last_name
     
-    return render_template('home.html', publications=publications)
+    return render_template('index.html', publications=publications)
 
 @main.route('/create_publication', methods=['GET', 'POST'])
 @login_required

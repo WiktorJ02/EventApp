@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask import Blueprint
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_migrate import Migrate
@@ -12,8 +11,7 @@ login_manager.login_view = 'login.user_login'
 login_manager.session_protection = 'strong'
 
 def create_app(config_name):
-    app = Flask(__name__)
-
+    app = Flask(__name__, static_folder='static')
     from config import config
     app.config.from_object(config[config_name])
     
@@ -21,7 +19,6 @@ def create_app(config_name):
     bootstrap.init_app(app)
     login_manager.init_app(app)
     migrate = Migrate(app, db)
-
 
     from app.eventapp import main as main_blueprint
     app.register_blueprint(main_blueprint)
@@ -36,6 +33,3 @@ def create_app(config_name):
     app.register_blueprint(admin_blueprint)
 
     return app
-
-
-    

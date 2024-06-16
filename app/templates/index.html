@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Event App</h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('main.home') }}">Home</a></li> 
+                    <li><a href="#">Add offer</a></li>
+                    <li><a href="#">Register</a></li>
+                    <li><a href="#">Sign in</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Find the Best Professionals for your event!</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <button>Explore</button>
+        </div>
+    </section>
+    <section class="search-section">
+        <div class="container">
+            <input type="text" placeholder="Search for...">
+            <button>Search</button>
+            <input type="text" placeholder="Location">
+            <input type="text" placeholder="Salary Range">
+            <input type="text" placeholder="Sort By">
+        </div>
+    </section>
+    <section class="cards-section">
+        <div class="container">
+            {% for publication in publications %}
+            <div class="card">
+                <img src="{{ url_for('static', filename='img/user-image.jpg') }}" alt="User Image">
+                <div class="card-content">
+                    <h3>{{ publication.creating_user_first_name }} {{ publication.creating_user_last_name }}</h3>
+                    <p>{{ publication.description }}</p>
+                    <button>Send Message</button>
+                    <button>Show Offer</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>All rights reserved</p>
+        </div>
+    </footer>
+</body>
+</html>
