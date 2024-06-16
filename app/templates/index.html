@@ -13,9 +13,9 @@
             <nav>
                 <ul>
                     <li><a href="{{ url_for('main.home') }}">Home</a></li> 
-                    <li><a href="#">Add offer</a></li>
-                    <li><a href="#">Register</a></li>
-                    <li><a href="#">Sign in</a></li>
+                    <li><a href="{{ url_for('main.create_publication') }}">Add offer</a></li>
+                    <li><a href="{{ url_for('at.register_user') }}">Register</a></li>
+                    <li><a href="{{ url_for('login.user_login') }}">Sign in</a></li>
                 </ul>
             </nav>
         </div>

@@ -159,3 +159,96 @@ footer {
     padding: 1rem 0;
 }
 
+
+div.container.form{
+    width: 60%
+}
+
+/* Resetowanie stylów dla formularza */
+body {
+    font-family: 'Roboto', Arial, sans-serif; /* Używamy czcionki Roboto, podobnej do tej używanej przez Google */
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+form {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 30%;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Styl dla inputów */
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form input[type="date"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Styl dla przycisku */
+form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+/* Styl dla linków */
+form a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+form a:hover {
+    text-decoration: underline;
+}
+
+/* Styl dla labeli */
+form label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Styl dla komunikatu flash */
+.flash {
+    padding: 8px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+/* Styl dla wiadomości o błędzie */
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+/* Dodatkowy styl dla całego body */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
