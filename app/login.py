@@ -10,19 +10,22 @@ from flask_login import login_user, logout_user, login_required, current_user
 bcrypt = Bcrypt()
 login = Blueprint('login', __name__)
 
-# login form
+# Login form
 class LoginForm(FlaskForm):
     login = StringField('Login', validators=[DataRequired(), Length(min=4, max=32)])
     password = PasswordField('Password', validators=[DataRequired()]) 
     stay_logged_in = BooleanField('Remember me')
     submit = SubmitField('Login')
 
-# login route
+# Login route
 @login.route('/login', methods=['GET', 'POST'])
 def user_login():
     form = LoginForm()
     if form.validate_on_submit():
         user = Users.query.filter_by(login=form.login.data).first()
+        if user.is_blocked:
+            flash('Your account is blocekd. Please contact support.')
+            return redirect(url_for('login.user_login'))
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.stay_logged_in.data)
             flash('Login successful!')

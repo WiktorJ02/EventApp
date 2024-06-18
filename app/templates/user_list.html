@@ -12,6 +12,8 @@
                 <th>Last Name</th>
                 <th>Birth Date</th>
                 <th>Admin</th>
+                <th>Blocked</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -24,8 +26,18 @@
                     <td>{{ user.last_name }}</td>
                     <td>{{ user.birth_date }}</td>
                     <td>{{ 'Yes' if user.is_admin else 'No' }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% endblock content %}
+                    <td>{{ 'Yes' if user.is_blocked else 'No' }}</td>
+                    <td>
+                        {% if not user.is_admin %}
+                        <a href="{{ url_for('admin.block_user', user_id=user.id) }}">
+                            {{ 'Unblock' if user.is_blocked else 'Block' }}
+                        </a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

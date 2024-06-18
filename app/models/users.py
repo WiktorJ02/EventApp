@@ -19,7 +19,7 @@ class Users(db.Model, UserMixin):
     birth_date = db.Column(db.Date, nullable=False)
     creation_date = db.Column(db.DateTime, default=lambda: datetime.now(pytz.timezone('Europe/Warsaw')))
     last_login = db.Column(db.DateTime, nullable=True)
-    is_visible = db.Column(db.Boolean, default=True)
+    is_blocked = db.Column(db.Boolean, default=False)
     is_admin = db.Column(db.Boolean, default=False)
     
     # Relationships
