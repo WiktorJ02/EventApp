@@ -1,1 +1,28 @@
 {% extends 'layout.html' %}
+
+{% block content %}
+    <h1>Profile</h1>
+    <p><strong>Login:</strong> {{ user.login }}</p>
+    <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Birthdate:</strong> {{ user.birth_date.strftime('%d/%m/%Y') }}</p>
+
+    <h2>Your Publications</h2>
+    <ul>
+        {% for pub in publications %}
+        <div class="col-md-4">
+            <a href="{{ url_for('main.publication_detail', pub_id=pub.id) }}" class="publication-link">
+                <div class="publication-item">
+                    <h4>{{ pub.name }}</h4>
+                    <p>{{ pub.description }}</p>
+                    <p>Price: {{ pub.price }}</p>
+                    <p>Average Rating: {{ pub.average_rating or 0 }}</p>
+                    {% else %}
+                    <li>No publications found.</li>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+    
+    </ul>
+{% endblock %}

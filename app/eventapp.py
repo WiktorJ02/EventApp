@@ -6,11 +6,16 @@ from app import db
 from app.create_pub import PublicationForm
 from app.models.publications import Publications
 from app.models.ratings import Ratings
-
+from flask_wtf import FlaskForm
+from wtforms import SubmitField
 
 main = Blueprint('main', __name__)
 
+# Class for deleting publication
+class DeleteForm(FlaskForm):
+    submit = SubmitField('Delete')
 
+# Publications list
 @main.route('/')
 def home():
     publications = Publications.query.filter_by(is_visible=True).all()
@@ -22,6 +27,7 @@ def home():
     
     return render_template('home.html', publications=publications)
 
+# Create publicataion
 @main.route('/create_publication', methods=['GET', 'POST'])
 @login_required
 def create_publication():
@@ -41,10 +47,14 @@ def create_publication():
         return redirect(url_for('main.home'))
     return render_template('create_publication.html', form=form)
 
-
-@main.route('/publication/<int:pub_id>')
+# Publication details
+@main.route('/publication/<int:pub_id>', methods=['GET', 'POST'])
 def publication_detail(pub_id):
     publication = Publications.query.get_or_404(pub_id)
+    delete_form = DeleteForm()
+    ratings = Ratings.query.filter_by(publication_id=pub_id).all()
+    creator = Users.query.get(publication.creating_user_id)
+    
     if request.method == 'POST':
         if not current_user.is_authenticated:
             flash('You need to be logged in to rate publications.', 'error')
@@ -64,6 +74,24 @@ def publication_detail(pub_id):
         flash('Your rating has been submitted!', 'success')
         return redirect(url_for('main.publication_detail', pub_id=pub_id))
 
-    ratings = Ratings.query.filter_by(publication_id=pub_id).all()
-    creator = Users.query.get(publication.creating_user_id)
-    return render_template('publication_details.html', publication=publication, ratings=ratings, creator=creator)
+    return render_template('publication_details.html', publication=publication, ratings=ratings, creator=creator, delete_form=delete_form)
+
+# Delete publciations
+@main.route('/publication/delete/<int:pub_id>', methods=['POST'])
+@login_required
+def delete_publication(pub_id):
+    publication = Publications.query.get_or_404(pub_id)
+    delete_form = DeleteForm()
+
+    if delete_form.validate_on_submit():
+        if not current_user.is_admin and current_user.id != publication.creating_user_id:
+            flash('You do not have permission to delete this publication.', 'error')
+            return redirect(url_for('main.publication_detail', pub_id=pub_id))
+        
+        db.session.delete(publication)
+        db.session.commit()
+        flash('Publication has been deleted.', 'success')
+        return redirect(url_for('main.home'))
+    
+    flash('Invalid form submission.', 'error')
+    return redirect(url_for('main.publication_detail', pub_id=pub_id))

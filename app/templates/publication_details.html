@@ -11,6 +11,14 @@
         <p>Creator: {{ creator.first_name }} {{ creator.last_name }}</p>
         <p>Average Rating: {{ publication.average_rating or 0 }}</p>
     </div>
+    
+    {% if current_user.is_authenticated and (current_user.is_admin or current_user.id == publication.creating_user_id) %}
+        <form method="POST" action="{{ url_for('main.delete_publication', pub_id=publication.id) }}">
+            {{ delete_form.hidden_tag() }} <!-- CSRF protection -->
+            {{ delete_form.submit(class="btn btn-danger") }}
+        </form>
+    {% endif %}
+
     <h3>Ratings:</h3>
     {% for rating in ratings %}
         <div class="rating-box">
@@ -19,7 +27,6 @@
             <p>By: {{ rating.creating_user.first_name }} {{ rating.creating_user.last_name }} on {{ rating.creation_date.strftime('%Y-%m-%d') }}</p>
         </div>
     {% endfor %}
-
     {% if current_user.is_authenticated %}
         <h3>Leave a Rating:</h3>
         <form method="post">
@@ -36,4 +43,6 @@
     {% else %}
         <p>You need to be logged in to leave a rating.</p>
     {% endif %}
+
+
 {% endblock content %}
