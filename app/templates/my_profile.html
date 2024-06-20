@@ -7,6 +7,24 @@
     <p><strong>Email:</strong> {{ user.email }}</p>
     <p><strong>Birthdate:</strong> {{ user.birth_date.strftime('%d/%m/%Y') }}</p>
 
+    <h2>Account Settings</h2>
+
+    <h3>Change Email</h3>
+    <form method="POST" action="{{ url_for('profile.change_email') }}">
+        {{ change_email_form.hidden_tag() }}
+        {{ change_email_form.email.label }} {{ change_email_form.email(size=32) }}<br>
+        {{ change_email_form.submit(class="btn btn-primary") }}
+    </form>
+
+    <h3>Change Password</h3>
+    <form method="POST" action="{{ url_for('profile.change_password') }}">
+        {{ change_password_form.hidden_tag() }}
+        {{ change_password_form.current_password.label }} {{ change_password_form.current_password(size=32) }}<br>
+        {{ change_password_form.new_password.label }} {{ change_password_form.new_password(size=32) }}<br>
+        {{ change_password_form.confirm_new_password.label }} {{ change_password_form.confirm_new_password(size=32) }}<br>
+        {{ change_password_form.submit(class="btn btn-primary") }}
+    </form>
+
     <h2>Your Publications</h2>
     <ul>
         {% for pub in publications %}

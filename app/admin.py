@@ -5,6 +5,7 @@ from app import db
 
 admin = Blueprint('admin', __name__)
 
+# User list route
 @admin.route('/user-list')
 @login_required
 def user_list():
@@ -15,6 +16,7 @@ def user_list():
     users = Users.query.all()
     return render_template('user_list.html', users=users)
 
+# Block users route
 @admin.route('/block-user/<int:user_id>')
 @login_required
 def block_user(user_id):
