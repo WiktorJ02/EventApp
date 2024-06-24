@@ -1,9 +1,26 @@
 {% extends 'layout.html' %}
-{% import "bootstrap/wtf.html" as wtf %}
+
 {% block content %}
     <h2>Create Publication</h2>
-    <form method="POST" action="{{ url_for('main.create_publication') }}">
+    <form method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
-        <div> {{ wtf.quick_form(form) }} </div>
+        <div>
+            {{ form.name.label }} {{ form.name() }}
+        </div>
+        <div>
+            {{ form.description.label }} {{ form.description() }}
+        </div>
+        <div>
+            {{ form.price.label }} {{ form.price() }}
+        </div>
+        <div>
+            {{ form.localization.label }} {{ form.localization() }}
+        </div>
+        <div>
+            {{ form.image.label }} {{ form.image() }}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
     </form>
-{% endblock content %}
+{% endblock %}

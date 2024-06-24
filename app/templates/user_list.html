@@ -2,14 +2,35 @@
 
 {% block content %}
     <h2>User List</h2>
-    <table class="table">
+
+    <form method="GET" action="{{ url_for('admin.user_list') }}" class="form-inline">
+        <div class="row">
+            <div class="col-md-2">
+                <input type="text" name="search_login" class="form-control" placeholder="Login" value="{{ search_login }}">
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="search_email" class="form-control" placeholder="Email" value="{{ search_email }}">
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="search_first_name" class="form-control" placeholder="First Name" value="{{ search_first_name }}">
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="search_last_name" class="form-control" placeholder="Last Name" value="{{ search_last_name }}">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-striped">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Login</th>
-                <th>Email</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th><a href="{{ url_for('admin.user_list', search_login=search_login, search_email=search_email, search_first_name=search_first_name, search_last_name=search_last_name, sort_by='id', sort_order='asc' if sort_order == 'desc' else 'desc') }}">ID</a></th>
+                <th><a href="{{ url_for('admin.user_list', search_login=search_login, search_email=search_email, search_first_name=search_first_name, search_last_name=search_last_name, sort_by='login', sort_order='asc' if sort_order == 'desc' else 'desc') }}">Login</a></th>
+                <th><a href="{{ url_for('admin.user_list', search_login=search_login, search_email=search_email, search_first_name=search_first_name, search_last_name=search_last_name, sort_by='email', sort_order='asc' if sort_order == 'desc' else 'desc') }}">Email</a></th>
+                <th><a href="{{ url_for('admin.user_list', search_login=search_login, search_email=search_email, search_first_name=search_first_name, search_last_name=search_last_name, sort_by='first_name', sort_order='asc' if sort_order == 'desc' else 'desc') }}">First Name</a></th>
+                <th><a href="{{ url_for('admin.user_list', search_login=search_login, search_email=search_email, search_first_name=search_first_name, search_last_name=search_last_name, sort_by='last_name', sort_order='asc' if sort_order == 'desc' else 'desc') }}">Last Name</a></th>
                 <th>Birth Date</th>
                 <th>Admin</th>
                 <th>Blocked</th>
@@ -29,15 +50,15 @@
                     <td>{{ 'Yes' if user.is_blocked else 'No' }}</td>
                     <td>
                         {% if not user.is_admin %}
-                        <a href="{{ url_for('admin.block_user', user_id=user.id) }}">
-                            {{ 'Unblock' if user.is_blocked else 'Block' }}
-                        </a>
-                    {% else %}
-                        N/A
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                            <a href="{{ url_for('admin.block_user', user_id=user.id) }}">
+                                {{ 'Unblock' if user.is_blocked else 'Block' }}
+                            </a>
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

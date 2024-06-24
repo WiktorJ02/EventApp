@@ -1,11 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, FloatField, SubmitField
-from wtforms.validators import DataRequired, Length
+from wtforms import StringField, FloatField, SubmitField, FileField
+from wtforms.validators import DataRequired, Length, Optional
+from flask_wtf.file import FileAllowed
 
 class PublicationForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(max=30)])
-    description = TextAreaField('Description', validators=[DataRequired(), Length(max=300)])
+    description = StringField('Description', validators=[DataRequired(), Length(max=300)])
     price = FloatField('Price', validators=[DataRequired()])
-    localization = StringField('Localization', validators=[DataRequired(),Length(max=30)])
-    image = StringField('Image URL', validators=[DataRequired(),Length(max=100)])
+    localization = StringField('Localization', validators=[DataRequired(), Length(max=30)])
+    image = FileField('Image', validators=[Optional(), FileAllowed(['jpg', 'jpeg', 'png'], 'Images only!')])
     submit = SubmitField('Create Publication')
