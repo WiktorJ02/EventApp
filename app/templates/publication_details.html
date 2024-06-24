@@ -2,7 +2,7 @@
 {% block content %}
     <h2>Publication Details</h2>
     <div class="publication-details">
-        <img src="{{ url_for('static', filename='uploads/' ~ publication.image) }}" alt="{{ publication.name }}">
+        <img src="{{ url_for('static', filename='uploads/' ~ publication.image) }}" alt="Publication Image" style="max-width: 300px; max-height: 300px;">
         <h3>{{ publication.name }}</h3>
         <p>Description: {{ publication.description }}</p>
         <p>Price: {{ publication.price }}</p>
@@ -11,31 +11,10 @@
         <p>Creator: {{ creator.first_name }} {{ creator.last_name }}</p>
         <p>Average Rating: {{ publication.average_rating or 0 }}</p>
     </div>
-
-    <h3>Update Publication</h3>
-<form method="POST" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
-    <div>
-        {{ form.name.label }} {{ form.name() }}
-    </div>
-    <div>
-        {{ form.description.label }} {{ form.description() }}
-    </div>
-    <div>
-        {{ form.price.label }} {{ form.price() }}
-    </div>
-    <div>
-        {{ form.localization.label }} {{ form.localization() }}
-    </div>
-    <div>
-        {{ form.image.label }} {{ form.image() }}
-    </div>
-    <div>
-        {{ form.submit() }}
-    </div>
-</form>
 <hr>
-    
+    {% if current_user.is_authenticated and (current_user.id == publication.creating_user_id or current_user.is_admin) %}
+        <a href="{{ url_for('main.update_publication', pub_id=publication.id) }}" class="btn btn-primary">Update Publication</a>
+    {% endif %}
     {% if current_user.is_authenticated and (current_user.is_admin or current_user.id == publication.creating_user_id) %}
         <form method="POST" action="{{ url_for('main.delete_publication', pub_id=publication.id) }}">
             {{ delete_form.hidden_tag() }} <!-- CSRF protection -->

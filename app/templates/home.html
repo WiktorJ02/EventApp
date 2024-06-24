@@ -10,6 +10,7 @@
               <div class="col-md-4">
                   <a href="{{ url_for('main.publication_detail', pub_id=pub.id) }}" class="publication-link">
                       <div class="publication-item">
+                            <img src="{{ url_for('static', filename='uploads/' ~ pub.image) }}" alt="{{ pub.name }}" class="publication-image">
                           <h4>{{ pub.name }}</h4>
                           <p>{{ pub.description }}</p>
                           <p>Price: {{ pub.price }}</p>

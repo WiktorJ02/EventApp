@@ -8,5 +8,5 @@ class PublicationForm(FlaskForm):
     description = StringField('Description', validators=[DataRequired(), Length(max=300)])
     price = FloatField('Price', validators=[DataRequired()])
     localization = StringField('Localization', validators=[DataRequired(), Length(max=30)])
-    image = FileField('Image', validators=[Optional(), FileAllowed(['jpg', 'jpeg', 'png'], 'Images only!')])
+    image = FileField('Image', validators=[DataRequired(), FileAllowed(['jpg', 'jpeg', 'png'], 'Images only!')])
     submit = SubmitField('Create Publication')
