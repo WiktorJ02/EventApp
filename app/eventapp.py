@@ -50,6 +50,7 @@ def home():
         user = Users.query.get(pub.creating_user_id)
         pub.creating_user_first_name = user.first_name
         pub.creating_user_last_name = user.last_name
+        pub.average_rating = pub.average_rating()
     return render_template('home.html', publications=publications)
 
 @main.route('/create_publication', methods=['GET', 'POST'])
@@ -85,18 +86,19 @@ def publication_detail(pub_id):
     delete_form = DeleteForm()
     form = PublicationForm(obj=publication)
     creator = Users.query.get(publication.creating_user_id)
-    rating = None  # Initialize rating to None
+    rating = None 
+    average_rating = publication.average_rating()
 
     if request.method == 'POST':
         if not current_user.is_authenticated:
             flash('You need to be logged in to rate publications.', 'error')
             return redirect(url_for('main.publication_detail', pub_id=pub_id))
         
-        rating_value = request.form.get('rating')  # Get rating value from form
+        rating_value = request.form.get('rating') 
         comment = request.form.get('comment')
 
         try:
-            rating = int(rating_value)  # Convert to integer
+            rating = int(rating_value) 
             if rating < 1 or rating > 5:
                 raise ValueError("Rating must be between 1 and 5.")
 
@@ -114,7 +116,7 @@ def publication_detail(pub_id):
     # Fetch ratings for the publication
     ratings = Ratings.query.filter_by(publication_id=pub_id).all()
 
-    return render_template('publication_details.html', publication=publication, ratings=ratings, creator=creator, delete_form=delete_form, form=form)
+    return render_template('publication_details.html', publication=publication, average_rating=average_rating, ratings=ratings, creator=creator, delete_form=delete_form, form=form)
 
 @main.route('/update_publication/<int:pub_id>', methods=['GET', 'POST'])
 @login_required

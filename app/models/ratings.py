@@ -18,7 +18,7 @@ class Ratings(db.Model):
     )
     
     creating_user = db.relationship('Users', backref='comments', lazy=True)
-    publication = db.relationship('Publications', backref='ratings', lazy=True)
+    publication = db.relationship('Publications', backref='publication_ratings', lazy=True)
     
     
     def __init__(self, rating, comment, user_id, publication_id):

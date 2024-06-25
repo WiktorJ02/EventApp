@@ -9,7 +9,11 @@
         <p>Localization: {{ publication.localization }}</p>
         <p>Creation Date: {{ publication.creation_date }}</p>
         <p>Creator: {{ creator.first_name }} {{ creator.last_name }}</p>
-        <p>Average Rating: {{ publication.average_rating or 0 }}</p>
+        {% if average_rating %}
+            <p>Average Rating: {{ average_rating|round(1) }}</p>
+        {% else %}
+            <p>No ratings yet</p>
+        {% endif %}
     </div>
 <hr>
     {% if current_user.is_authenticated and (current_user.id == publication.creating_user_id or current_user.is_admin) %}
@@ -42,12 +46,17 @@
         {% endif %} 
 
     <div>
-    <h4>Existing Ratings:</h4>
-        <ul>
+        <h4>Existing Ratings:</h4>
+        <div class="ratings-container">
             {% for rating in ratings %}
-                <li>{{ rating.rating }} - {{ rating.comment }}</li>
+                <div class="rating-box">
+                    <div class="rating-user">{{ rating.creating_user.first_name }} {{ rating.creating_user.last_name }}</div>
+                    <div class="rating-content">
+                        <strong>{{ rating.rating }}</strong> - {{ rating.comment }}
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 
 {% endblock %}

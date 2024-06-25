@@ -15,7 +15,11 @@
                           <p>{{ pub.description }}</p>
                           <p>Price: {{ pub.price }}</p>
                           <p>Creating user: {{ pub.creating_user_first_name }} {{ pub.creating_user_last_name }}</p>
-                          <p>Average Rating: {{ pub.average_rating or 0 }}</p>
+                        {% if pub.average_rating %}
+                            <p>Average Rating: {{ pub.average_rating|round(1) }}</p>
+                        {% else %}
+                            <p>No ratings yet</p>
+                        {% endif %}
                       </div>
                   </a>
               </div>

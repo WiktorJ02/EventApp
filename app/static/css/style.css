@@ -71,3 +71,27 @@ body {
     margin-right: -4px;
     width: 30%;
 }
+
+.ratings-container {
+    margin-top: 20px;
+}
+
+.rating-box {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    background-color: #f9f9f9;
+}
+
+.rating-user {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-weight: bold;
+}
+
+.rating-content {
+    margin-top: 30px; 
+}
