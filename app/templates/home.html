@@ -4,6 +4,7 @@
     {% if current_user.is_authenticated %}
         <a href="{{ url_for('main.create_publication') }}" class="btn btn-primary">Create Publication</a>
     {% endif %}
+    
     <div class="container">
       <div class="row">
           {% for pub in publications %}

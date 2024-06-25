@@ -5,6 +5,7 @@ from flask_login import login_required, current_user
 from app.models.users import Users
 from app.models.publications import Publications
 from app import db
+from sqlalchemy import desc, asc, func
 from app.create_pub import PublicationForm
 from app.models.ratings import Ratings
 from flask_wtf import FlaskForm
