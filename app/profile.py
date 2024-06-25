@@ -5,6 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 from app import db
+from app.models.ratings import Ratings
 
 profile = Blueprint('profile', __name__)
 # Forms
@@ -26,6 +27,9 @@ def view_profile():
     publications = Publications.query.filter_by(creating_user_id=user.id).order_by(Publications.creation_date.desc()).all()
     change_email_form = ChangeEmailForm()
     change_password_form = ChangePasswordForm()
+    for pub in publications:
+        avg_rating = db.session.query(db.func.avg(Ratings.rating)).filter(Ratings.publication_id == pub.id).scalar()
+        pub.average_rating = round(avg_rating, 1) if avg_rating else 0
     return render_template('my_profile.html', publications=publications, user=user, change_email_form=change_email_form, change_password_form=change_password_form)
 
 @profile.route('/change_email', methods=['POST'])
