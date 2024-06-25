@@ -23,7 +23,7 @@ class ChangePasswordForm(FlaskForm):
 @login_required
 def view_profile():
     user = current_user
-    publications = Publications.query.filter_by(creating_user_id=user.id).all()
+    publications = Publications.query.filter_by(creating_user_id=user.id).order_by(Publications.creation_date.desc()).all()
     change_email_form = ChangeEmailForm()
     change_password_form = ChangePasswordForm()
     return render_template('my_profile.html', publications=publications, user=user, change_email_form=change_email_form, change_password_form=change_password_form)

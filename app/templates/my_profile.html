@@ -26,21 +26,23 @@
     </form>
 
     <h2>Your Publications</h2>
-    <ul>
-        {% for pub in publications %}
-        <div class="col-md-4">
-            <a href="{{ url_for('main.publication_detail', pub_id=pub.id) }}" class="publication-link">
-                <div class="publication-item">
-                    <h4>{{ pub.name }}</h4>
-                    <p>{{ pub.description }}</p>
-                    <p>Price: {{ pub.price }}</p>
-                    <p>Average Rating: {{ pub.average_rating or 0 }}</p>
-                    {% else %}
-                    <li>No publications found.</li>
+    <div class="container">
+        <div class="row">
+            {% for pub in publications %}
+                <div class="col-md-4">
+                    <a href="{{ url_for('main.publication_detail', pub_id=pub.id) }}" class="publication-link">
+                        <div class="publication-item">
+                            <img src="{{ url_for('static', filename='uploads/' ~ pub.image) }}" alt="{{ pub.name }}" class="publication-image">
+                            <h4>{{ pub.name }}</h4>
+                            <p>{{ pub.description }}</p>
+                            <p>Price: {{ pub.price }}</p>
+                            <p>Average Rating: {{ pub.average_rating or 0 }}</p>
+                        </div>
+                    </a>
                 </div>
-            </a>
+            {% else %}
+                <p>No publications found.</p>
+            {% endfor %}
         </div>
-    {% endfor %}
-    
-    </ul>
+    </div>
 {% endblock %}
