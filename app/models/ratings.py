@@ -21,8 +21,9 @@ class Ratings(db.Model):
     publication = db.relationship('Publications', backref='ratings', lazy=True)
     
     
-    def __init__(self, rating, comment):
-        
+    def __init__(self, rating, comment, user_id, publication_id):
         self.rating = rating
         self.comment = comment
+        self.user_id = user_id
+        self.publication_id = publication_id
         

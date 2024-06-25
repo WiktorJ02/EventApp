@@ -8,10 +8,17 @@ from app import db
 from app.create_pub import PublicationForm
 from app.models.ratings import Ratings
 from flask_wtf import FlaskForm
-from wtforms import SubmitField
+from wtforms import SubmitField, IntegerField, TextAreaField, SubmitField
+from wtforms.validators import InputRequired, NumberRange, Length
 from werkzeug.utils import secure_filename
 
+
 main = Blueprint('main', __name__)
+
+class RatingForm(FlaskForm):
+    rating = IntegerField('Rating (1-5)', validators=[InputRequired(), NumberRange(min=1, max=5)])
+    comment = TextAreaField('Comment', validators=[InputRequired(), Length(max=300)])
+    submit = SubmitField('Submit')
 
 class DeleteForm(FlaskForm):
     submit = SubmitField('Delete')
@@ -77,9 +84,36 @@ def publication_detail(pub_id):
     publication = Publications.query.get_or_404(pub_id)
     delete_form = DeleteForm()
     form = PublicationForm(obj=publication)
-  
-    ratings = Ratings.query.filter_by(publication_id=pub_id).all()
     creator = Users.query.get(publication.creating_user_id)
+    rating = None  # Initialize rating to None
+
+    if request.method == 'POST':
+        if not current_user.is_authenticated:
+            flash('You need to be logged in to rate publications.', 'error')
+            return redirect(url_for('main.publication_detail', pub_id=pub_id))
+        
+        rating_value = request.form.get('rating')  # Get rating value from form
+        comment = request.form.get('comment')
+
+        try:
+            rating = int(rating_value)  # Convert to integer
+            if rating < 1 or rating > 5:
+                raise ValueError("Rating must be between 1 and 5.")
+
+            new_rating = Ratings(rating=rating, comment=comment, user_id=current_user.id, publication_id=pub_id)
+            db.session.add(new_rating)
+            db.session.commit()
+
+            flash('Your rating has been submitted!', 'success')
+            return redirect(url_for('main.publication_detail', pub_id=pub_id))
+
+        except ValueError as e:
+            flash(str(e), 'error')
+            return redirect(url_for('main.publication_detail', pub_id=pub_id))
+    
+    # Fetch ratings for the publication
+    ratings = Ratings.query.filter_by(publication_id=pub_id).all()
+
     return render_template('publication_details.html', publication=publication, ratings=ratings, creator=creator, delete_form=delete_form, form=form)
 
 @main.route('/update_publication/<int:pub_id>', methods=['GET', 'POST'])
