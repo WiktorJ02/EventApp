@@ -1,11 +1,30 @@
 {% extends 'layout.html' %}
 {% block content %}
     <h2>Publications Page</h2>
+      <form method="GET" action="{{ url_for('main.home') }}" class="form-inline" id="filter-form">
+        <div class="row">
+            <div class="col-md-2">
+                <input type="text" name="name" class="form-control" placeholder="Name" value="{{ request.args.get('name', '') }}">
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="localization" class="form-control" placeholder="Localization" value="{{ request.args.get('localization', '') }}">
+            </div>
+            <div class="col-md-2">
+                <select name="sort_by" class="form-control">
+                    <option value="newest" {% if request.args.get('sort_by') == 'newest' %} selected {% endif %}>Newest first</option>
+                    <option value="oldest" {% if request.args.get('sort_by') == 'oldest' %} selected {% endif %}>Oldest first</option>
+                    <option value="cheapest" {% if request.args.get('sort_by') == 'cheapest' %} selected {% endif %}>Price: Cheapest first</option>
+                    <option value="expensive" {% if request.args.get('sort_by') == 'expensive' %} selected {% endif %}>Price: Most expensive first</option>
+                </select>
+            </div>
+        </div>
+    </form>
+
     {% if current_user.is_authenticated %}
         <a href="{{ url_for('main.create_publication') }}" class="btn btn-primary">Create Publication</a>
     {% endif %}
     
-    <div class="container">
+    <div class="container mt-4" id="publications-list">
       <div class="row">
           {% for pub in publications %}
               <div class="col-md-4">
@@ -24,7 +43,37 @@
                       </div>
                   </a>
               </div>
+            {% else %}
+                <p>No publications found.</p>
           {% endfor %}
       </div>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById("filter-form");
+        const nameInput = form.querySelector("input[name='name']");
+        const localizationInput = form.querySelector("input[name='localization']");
+        const sortBySelect = form.querySelector("select[name='sort_by']");
+
+        function submitForm() {
+            const formData = new FormData(form);
+            const queryString = new URLSearchParams(formData).toString();
+            fetch(`{{ url_for('main.home') }}?${queryString}`, {
+                method: 'GET',
+            })
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const newContent = doc.getElementById('publications-list').innerHTML;
+                document.getElementById('publications-list').innerHTML = newContent;
+            });
+        }
+
+        nameInput.addEventListener("input", submitForm);
+        localizationInput.addEventListener("input", submitForm);
+        sortBySelect.addEventListener("change", submitForm);
+    });
+</script>
 {% endblock content %}

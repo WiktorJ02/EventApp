@@ -44,9 +44,36 @@ def resize_image(image_path, output_size=(300, 300)):
         img = img.resize(output_size, Image.LANCZOS)
         img.save(image_path)    
 
-@main.route('/')
+
+@main.route('/', methods=['GET'])
 def home():
-    publications = Publications.query.filter_by(is_visible=True).order_by(Publications.creation_date.desc()).all()
+    # Fetching filter parameters from the query string
+    name_filter = request.args.get('name', '')
+    localization_filter = request.args.get('localization', '')
+    sort_by = request.args.get('sort_by', 'newest')  # Default to sorting by newest first
+
+    # Base query to fetch all visible publications
+    query = Publications.query.filter_by(is_visible=True)
+
+    # Applying filters
+    if name_filter:
+        query = query.filter(Publications.name.ilike(f'%{name_filter}%'))
+    if localization_filter:
+        query = query.filter(Publications.localization.ilike(f'%{localization_filter}%'))
+
+    # Applying sorting
+    if sort_by == 'newest':
+        query = query.order_by(desc(Publications.creation_date))
+    elif sort_by == 'oldest':
+        query = query.order_by(asc(Publications.creation_date))
+    elif sort_by == 'cheapest':
+        query = query.order_by(asc(Publications.price))
+    elif sort_by == 'expensive':
+        query = query.order_by(desc(Publications.price))
+
+    publications = query.all()
+
+
     for pub in publications:
         user = Users.query.get(pub.creating_user_id)
         pub.creating_user_first_name = user.first_name
