@@ -42,6 +42,7 @@ def create_app(config_name):
     from app.profile import profile as profile_blueprint
     app.register_blueprint(profile_blueprint)
 
+
     return app
 
 

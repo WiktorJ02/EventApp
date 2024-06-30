@@ -1,62 +1,64 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <h2>Publication Details</h2>
     <div class="publication-details">
-        <img src="{{ url_for('static', filename='uploads/' ~ publication.image) }}" alt="Publication Image" style="max-width: 300px; max-height: 300px;">
-        <h3>{{ publication.name }}</h3>
-        <p>Description: {{ publication.description }}</p>
-        <p>Price: {{ publication.price }}</p>
-        <p>Localization: {{ publication.localization }}</p>
-        <p>Creation Date: {{ publication.creation_date }}</p>
-        <p>Creator: {{ creator.first_name }} {{ creator.last_name }}</p>
-        {% if average_rating %}
-            <p>Average Rating: {{ average_rating|round(1) }}</p>
-        {% else %}
-            <p>No ratings yet</p>
-        {% endif %}
-    </div>
-<hr>
-    {% if current_user.is_authenticated and (current_user.id == publication.creating_user_id or current_user.is_admin) %}
-        <a href="{{ url_for('main.update_publication', pub_id=publication.id) }}" class="btn btn-primary">Update Publication</a>
-    {% endif %}
-    {% if current_user.is_authenticated and (current_user.is_admin or current_user.id == publication.creating_user_id) %}
-        <form method="POST" action="{{ url_for('main.delete_publication', pub_id=publication.id) }}">
-            {{ delete_form.hidden_tag() }} <!-- CSRF protection -->
-            {{ delete_form.submit(class="btn btn-danger") }}
-        </form>
-    {% endif %}
-<hr>
-    {% if current_user.is_authenticated %}
-        <h3>Leave a Rating:</h3>
+        <h2>Publication Details</h2>
+        <div class="publication-card">
+            <img src="{{ url_for('static', filename='uploads/' ~ publication.image) }}" alt="Publication Image" class="publication-image">
+            <div class="publication-info">
+                <h3>{{ publication.name }}</h3>
+                <p class="description">Description: {{ publication.description }}</p>
+                <p>Price: {{ publication.price }}</p>
+                <p>Localization: {{ publication.localization }}</p>
+                <p>Creation Date: {{ publication.creation_date }}</p>
+                <p>Creator: {{ creator.first_name }} {{ creator.last_name }}</p>
+                {% if average_rating %}
+                    <p>Average Rating: {{ average_rating|round(1) }}</p>
+                {% else %}
+                    <p>No ratings yet</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="actions">
+            {% if current_user.is_authenticated and (current_user.id == publication.creating_user_id or current_user.is_admin) %}
+                <a href="{{ url_for('main.update_publication', pub_id=publication.id) }}" class="btn btn-primary">Update Publication</a>
+            {% endif %}
+            {% if current_user.is_authenticated and (current_user.is_admin or current_user.id == publication.creating_user_id) %}
+                <form method="POST" action="{{ url_for('main.delete_publication', pub_id=publication.id) }}" class="inline-form">
+                    {{ delete_form.hidden_tag() }} <!-- CSRF protection -->
+                    {{ delete_form.submit(class="btn btn-danger") }}
+                </form>
+            {% endif %}
+        </div>
+        <hr>
+        {% if current_user.is_authenticated %}
+            <h3>Leave a Rating:</h3>
             <form method="post">
                 {{ form.hidden_tag() }}
                 <div class="form-group">
                     <label for="rating">Rating (1-5):</label>
                     <input type="number" id="rating" name="rating" class="form-control" min="1" max="5" required>
                 </div>
-            <div class="form-group">
-                <label for="comment">Comment:</label>
-                <textarea id="comment" name="comment" class="form-control" maxlength="300" required></textarea>
-            </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-
-    {% else %}
-        <p>You need to be logged in to leave a rating.</p>
-        {% endif %} 
-
-    <div>
-        <h4>Existing Ratings:</h4>
-        <div class="ratings-container">
-            {% for rating in ratings %}
-                <div class="rating-box">
-                    <div class="rating-user">{{ rating.creating_user.first_name }} {{ rating.creating_user.last_name }}</div>
-                    <div class="rating-content">
-                        <strong>{{ rating.rating }}</strong> - {{ rating.comment }}
-                    </div>
+                <div class="form-group">
+                    <label for="comment">Comment:</label>
+                    <textarea id="comment" name="comment" class="form-control" maxlength="300" required></textarea>
                 </div>
-            {% endfor %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        {% else %}
+            <p>You need to be logged in to leave a rating.</p>
+        {% endif %}
+        <div>
+            <h4>Existing Ratings:</h4>
+            <div class="ratings-container">
+                {% for rating in ratings %}
+                    <div class="rating-box">
+                        <div class="rating-user">{{ rating.creating_user.first_name }} {{ rating.creating_user.last_name }}</div>
+                        <div class="rating-content">
+                            <strong>{{ rating.rating }}</strong> - {{ rating.comment }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
-
 {% endblock %}

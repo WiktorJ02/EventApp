@@ -1,55 +1,64 @@
 {% extends 'layout.html' %}
-{% block content %}
-    <h2>Publications Page</h2>
-      <form method="GET" action="{{ url_for('main.home') }}" class="form-inline" id="filter-form">
-        <div class="row">
-            <div class="col-md-2">
-                <input type="text" name="name" class="form-control" placeholder="Name" value="{{ request.args.get('name', '') }}">
-            </div>
-            <div class="col-md-2">
-                <input type="text" name="localization" class="form-control" placeholder="Localization" value="{{ request.args.get('localization', '') }}">
-            </div>
-            <div class="col-md-2">
-                <select name="sort_by" class="form-control">
-                    <option value="newest" {% if request.args.get('sort_by') == 'newest' %} selected {% endif %}>Newest first</option>
-                    <option value="oldest" {% if request.args.get('sort_by') == 'oldest' %} selected {% endif %}>Oldest first</option>
-                    <option value="cheapest" {% if request.args.get('sort_by') == 'cheapest' %} selected {% endif %}>Price: Cheapest first</option>
-                    <option value="expensive" {% if request.args.get('sort_by') == 'expensive' %} selected {% endif %}>Price: Most expensive first</option>
-                </select>
-            </div>
-        </div>
-    </form>
 
-    {% if current_user.is_authenticated %}
-        <a href="{{ url_for('main.create_publication') }}" class="btn btn-primary">Create Publication</a>
-    {% endif %}
-    
-    <div class="container mt-4" id="publications-list">
-      <div class="row">
-          {% for pub in publications %}
-              <div class="col-md-4">
-                  <a href="{{ url_for('main.publication_detail', pub_id=pub.id) }}" class="publication-link">
-                      <div class="publication-item">
-                            <img src="{{ url_for('static', filename='uploads/' ~ pub.image) }}" alt="{{ pub.name }}" class="publication-image">
-                          <h4>{{ pub.name }}</h4>
-                          <p>{{ pub.description }}</p>
-                          <p>Price: {{ pub.price }}</p>
-                          <p>Creating user: {{ pub.creating_user_first_name }} {{ pub.creating_user_last_name }}</p>
+{% block content %}
+
+
+<div class="hero">
+    <div class="hero-content">
+        <h2>Find the Best Professionals for your event!</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <button>Explore</button>
+    </div>
+</div>
+
+<section class="search-section">
+    <div class="container">
+        <form method="GET" action="{{ url_for('main.home') }}" class="form-inline" id="filter-form">
+            <input type="text" name="name" class="form-control" placeholder="Name" value="{{ request.args.get('name', '') }}">
+            <input type="text" name="localization" class="form-control" placeholder="Localization" value="{{ request.args.get('localization', '') }}">
+            <select name="sort_by" class="form-control">
+                <option value="newest" {% if request.args.get('sort_by') == 'newest' %} selected {% endif %}>Newest first</option>
+                <option value="oldest" {% if request.args.get('sort_by') == 'oldest' %} selected {% endif %}>Oldest first</option>
+                <option value="cheapest" {% if request.args.get('sort_by') == 'cheapest' %} selected {% endif %}>Price: Cheapest first</option>
+                <option value="expensive" {% if request.args.get('sort_by') == 'expensive' %} selected {% endif %}>Price: Most expensive first</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Filter</button>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('main.create_publication') }}" class="btn btn-secondary buttonpub">Create Publication</a>
+            {% endif %}
+        </form>
+    </div>
+</section>
+<section class="cards-section">
+    <div class="container">
+        {% for pub in publications %}
+            <div class="card">
+                <img src="{{ url_for('static', filename='uploads/' ~ pub.image) }}" alt="{{ pub.name }}">
+                <div class="card-content">
+                        <h3>{{ pub.name }}</h3>
+                        <p>{{ pub.description }}</p>
+                        <p>Price: {{ pub.price }}</p>
+                        <p>Creating user: {{ pub.creating_user_first_name }} {{ pub.creating_user_last_name }}</p>
                         {% if pub.average_rating %}
                             <p>Average Rating: {{ pub.average_rating|round(1) }}</p>
                         {% else %}
                             <p>No ratings yet</p>
                         {% endif %}
-                      </div>
-                  </a>
-              </div>
-            {% else %}
-                <p>No publications found.</p>
-          {% endfor %}
-      </div>
-  </div>
+                        <a href="{{ url_for('main.publication_detail', pub_id=pub.id) }}" class="button">Show Offer</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 
-  <script>
+
+<footer>
+    <div class="container">
+        <p>All rights reserved</p>
+    </div>
+</footer>
+
+<script>
     document.addEventListener("DOMContentLoaded", function() {
         const form = document.getElementById("filter-form");
         const nameInput = form.querySelector("input[name='name']");

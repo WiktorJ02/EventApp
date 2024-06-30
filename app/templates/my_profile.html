@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<div class="profile-container">
     <h1>Profile</h1>
     <p><strong>Login:</strong> {{ user.login }}</p>
     <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
@@ -10,19 +11,35 @@
     <h2>Account Settings</h2>
 
     <h3>Change Email</h3>
-    <form method="POST" action="{{ url_for('profile.change_email') }}">
+    <form method="POST" action="{{ url_for('profile.change_email') }}" class="form-inline align-items-center">
         {{ change_email_form.hidden_tag() }}
-        {{ change_email_form.email.label }} {{ change_email_form.email(size=32) }}<br>
-        {{ change_email_form.submit(class="btn btn-primary") }}
+        <div class="form-group">
+            {{ change_email_form.email.label }} 
+            {{ change_email_form.email(class="form-control") }}
+        </div>
+        <div class="form-group ml-2">
+            {{ change_email_form.submit(class="btn btn-primary") }}
+        </div>
     </form>
 
     <h3>Change Password</h3>
-    <form method="POST" action="{{ url_for('profile.change_password') }}">
+    <form method="POST" action="{{ url_for('profile.change_password') }}" class="form-vertical">
         {{ change_password_form.hidden_tag() }}
-        {{ change_password_form.current_password.label }} {{ change_password_form.current_password(size=32) }}<br>
-        {{ change_password_form.new_password.label }} {{ change_password_form.new_password(size=32) }}<br>
-        {{ change_password_form.confirm_new_password.label }} {{ change_password_form.confirm_new_password(size=32) }}<br>
-        {{ change_password_form.submit(class="btn btn-primary") }}
+        <div class="form-group">
+            {{ change_password_form.current_password.label }} 
+            {{ change_password_form.current_password(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ change_password_form.new_password.label }} 
+            {{ change_password_form.new_password(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ change_password_form.confirm_new_password.label }} 
+            {{ change_password_form.confirm_new_password(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ change_password_form.submit(class="btn btn-primary") }}
+        </div>
     </form>
 
     <h2>Your Publications</h2>
@@ -45,4 +62,5 @@
             {% endfor %}
         </div>
     </div>
+</div>
 {% endblock %}

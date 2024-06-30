@@ -7,9 +7,10 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 {% endblock head %}
 
@@ -31,16 +32,21 @@
                 {% else %}
                     <li><a href="{{ url_for('at.register_user') }}">Register</a></li>
                     <li><a href="{{ url_for('login.user_login') }}">Sign In</a></li>
+                    
                 {% endif %}
+                
+
             </ul>
         </div>
     </nav>
     {% endblock navbar %}
 
     {% for message in get_flashed_messages() %}
-    <div class="container alert alert-info">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        {{ message }}
+    <div class="alert-container">
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
     </div>
     {% endfor %}
 
@@ -50,12 +56,11 @@
     </main>
 
     {% block footer %}
-    <footer class="ftr">
-        <div class="container">
-            <hr>
-            <p class="text-center small">Event App &copy; | 2024</p>
-        </div>
-    </footer>
+    <div class="footer2">
+        <p>All rights reserved | Event App © 2024</p>
+    <div class="footer2">
+    
+    
     {% endblock footer %}
 </div>
 </body>

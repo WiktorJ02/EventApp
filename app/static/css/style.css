@@ -1,97 +1,842 @@
-* {
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
+header {
+    background-color: #3a3a3a;
+    color: white;
+    padding: 1rem 0;
 }
 
-body {
+.navbar {
+    margin-bottom: 0 !important;
+    border-radius: 0;
+}
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.wrapper {
+h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    flex-direction: column;
-    min-height: 100%;
 }
 
-.content {
-    flex: 1;
+nav ul li {
+    margin-left: 2rem;
 }
 
-.footer {
-    background-color: #f1f1f1;
-    padding: 10px;
-    text-align: center;
-}
-.form-group input[type="text"],
-.form-group input[type="password"],
-.form-group input[type="date"] {
-    width: 300px;
-}
-
-.publication-link {
+nav ul li a {
+    color: rgb(216, 216, 216);
     text-decoration: none;
-    color: inherit;
 }
 
-.publication-item {
-    border: 1px solid #ddd;
-    padding: 20px;
-    margin-bottom: 20px;
-    transition: background-color 0.3s ease;
-    height: 100%;  /* Make sure each item has the same height */
-}
-
-.publication-item:hover {
-    background-color: #f9f9f9;
-    cursor: pointer;
-}
-.publication-box {
-    border: 1px solid #ccc;
-    padding: 15px;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-}
-
-.rating-box {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #fefefe;
-}
-
-.col-md-4 {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: -4px;
-    width: 30%;
-}
-
-.ratings-container {
-    margin-top: 20px;
-}
-
-.rating-box {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 10px;
-    position: relative;
-    background-color: #f9f9f9;
-}
-
-.rating-user {
-    position: absolute;
-    top: 10px;
-    left: 10px;
+nav ul li a:hover {
+    color: white;
     font-weight: bold;
 }
 
+.hero {
+    background-image: url('../img/photoMenu.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    position: relative;
+}
+
+.hero-content {
+    background-color: white;
+    padding: 2rem;
+    text-align: center;
+    width: 30%;
+    height: 45%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-right: 50px;
+    border-radius: 3px;
+}
+
+.hero-content button:hover {
+    background-color: #5750d4;
+}
+
+.hero-content h2 {
+    margin-top: 0;
+}
+
+.hero-content button {
+    background-color: #9370DB;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.search-section {
+    padding: 1rem 0;
+    background-color: #f9f9f9;
+}
+
+.search-section .container {
+    display: flex;
+    gap: 1rem;
+}
+
+.search-section input[type="text"] {
+    flex: 1;
+    padding: 0.5rem;
+}
+
+.search-section button {
+    background-color: #9370DB;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.search-section button:hover {
+    background-color: #5750d4;
+}
+.cards-section {
+    padding: 1rem 0;
+    background-color: #f9f9f9;
+}
+.cards-section .container {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap onto the next line */
+    justify-content: flex-start; /* Aligns items at the start of the container */
+    gap: 1rem; /* Provides a space between the cards */
+}
+
+.card {
+    flex: 0 0 calc(33.33% - 1rem); /* Ensures each card is exactly one-third minus the gap */
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Stretches items to fill the width of the card */
+    margin-bottom: 20px; /* Space at the bottom of each card */
+}
+
+.card img {
+    width: 100%;
+    height: 200px; /* Fixed height for consistency */
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 1rem;
+    flex-grow: 1; /* Allows content to expand to fill available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Organizes content and buttons within the card */
+}
+
+
+.card-content h3, .card-content p {
+    margin: 0.5rem 0;
+}
+
+.button {
+    background-color: #9370DB;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    text-align: center;
+    text-decoration: none;
+    margin-top: auto; /* Pushes the button to the bottom of the card-content */
+    margin-bottom: 5px;
+    border-radius: 4px;
+    width: 100%; /* Makes the button fill the card width */
+}
+
+.button:hover {
+    background-color: #5750d4;
+    color: white;
+}
+body footer, body footer::before, body footer::after {
+    content: normal !important;  /* Resets the content property */
+    display: none !important;  /* Ensures they do not display */
+}
+
+.footer2 p {
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 15px;  /* Make sure no margin is applied */
+}
+
+
+.btn-secondary {
+    background-color: #6c757d; /* Bootstrap secondary button color */
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #5a6268; /* Darker shade for hover */
+}
+
+
+
+
+/* Scoped styles for the create-publication page */
+.create-publication-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading style */
+.create-publication-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Style for form groups */
+.create-publication-container .form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Label styles */
+.create-publication-container .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Input styles */
+.create-publication-container .form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+/* Larger input field styled to look like a textarea */
+.create-publication-container .form-control.large-input {
+    height: 150px; /* Adjust height to make it look like a textarea */
+    resize: none; /* Prevent resizing */
+    padding: 1rem; /* Additional padding to match textarea */
+}
+
+/* Input focus styles */
+.create-publication-container .form-control:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Input file styles */
+.create-publication-container .form-control-file {
+    display: block;
+    width: 100%;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Button styles specific to create-publication */
+.create-publication-container .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    font-family: 'Arial', sans-serif;
+}
+
+.create-publication-container .btn-primary {
+    background-color: #007bff;
+}
+
+.create-publication-container .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Additional styling for better layout and aesthetics */
+.create-publication-container form {
+    padding: 1rem 2rem; /* Added padding inside the form */
+}
+
+.create-publication-container .form-group {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 500px; /* Centers and limits the width of form groups */
+}
+
+.create-publication-container .form-group:last-child {
+    margin-bottom: 0;
+}
+
+.create-publication-container .btn {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    max-width: 500px; /* Limits the width of the button to align with input fields */
+}
+
+
+
+
+/*  STYLE FOR MY_PROFILE */
+
+/* Container for the profile page */
+.profile-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styles */
+.profile-container h1, .profile-container h2, .profile-container h3 {
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Larger font size for profile info */
+.profile-container p {
+    font-size: 1.4rem;  /* Increased font size for better readability */
+    color: #555;
+    margin-bottom: 0.75rem;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Form styling */
+.profile-container .form-inline, .profile-container .form-vertical {
+    margin-bottom: 1.5rem;
+}
+
+.profile-container .form-group {
+    margin-bottom: 1rem;
+}
+
+/* Align items in the form-inline */
+.profile-container .form-inline.align-items-center .form-group {
+    display: flex;
+    align-items: center;
+}
+
+/* Label styles */
+.profile-container .form-group label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-family: 'Arial', sans-serif;
+    display: block; /* Make labels block elements to ensure they are above inputs */
+}
+
+/* Input styles */
+.profile-container .form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Adjust margin for inline form elements */
+.profile-container .form-inline .form-group.ml-2 {
+    margin-left: 0.5rem;
+}
+
+/* Button styles */
+.profile-container .btn-primary {
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    background-color: #9370DB;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.profile-container .btn-primary:hover {
+    background-color: #5750d4;
+}
+
+/* Publications styling */
+.profile-container .container {
+    margin-top: 2rem;
+}
+
+.profile-container .publication-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-container .publication-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container .publication-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.profile-container .publication-item h4 {
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+.profile-container .publication-item p {
+    color: #555;
+    font-family: 'Arial', sans-serif;
+}
+
+
+
+
+
+/* Container for authentication pages */
+/* Container for authentication pages */
+.auth-container {
+    max-width: 500px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background-color: #3a3a3a; /* Brown background for the outer container */
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative; /* Ensure the container can have a background image */
+    z-index: 1; /* Place the container above the background */
+}
+
+.auth-container::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background-color: #fff; /* White background for the inner container */
+    border-radius: 10px; /* Match the border radius of the container */
+    z-index: -1; /* Place the background image behind the content */
+}
+
+/* Heading styles */
+.auth-container h2 {
+    margin-bottom: 2rem;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* Form group styles */
+.auth-container .form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+/* Label styles */
+.auth-container .form-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #444;
+    font-family: 'Roboto', sans-serif;
+    display: block;
+}
+
+/* Input styles */
+.auth-container .form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-container .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+/* Button styles */
+.auth-container .btn-primary {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    background-color: #9370DB;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.auth-container .btn-primary:hover {
+    background-color: #5750d4;
+    transform: translateY(-2px);
+}
+
+/* Additional form styling */
+.container.form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2.5rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.container.form h2.form {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin-bottom: 2rem;
+}
+
+
+
+/* Container for the publication details */
+/* Container for the publication details */
+.publication-details {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
+}
+
+.publication-details h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.publication-card {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.publication-image {
+    width: 300px;
+    height: auto;
+    border-radius: 12px;
+}
+
+.publication-info p {
+    font-size: 1.4rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.publication-info h3 {
+    margin-top: 0;
+    color: #793fee;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+
+.description {
+    font-size: 1.3rem;
+    color: #333;
+}
+
+
+/* Form and button styling */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #444;
+    display: block;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.25);
+    outline: none;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.2rem;
+    border: 3px solid #070707;
+    border-radius: 6px;
+    color: #070707;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #9370DB;
+}
+
+.btn-primary:hover {
+    background-color: #5750d4;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.inline-form {
+    display: inline-block;
+    margin-left: 1rem;
+}
+.buttonpub{
+    background-color: #c5c5c5;
+    border: none;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.actions {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+/* Ratings styling */
+.ratings-container {
+    margin-top: 2rem;
+}
+
+.rating-box {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.rating-user {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #3498db;
+}
+/* Increased font size for rating content */
 .rating-content {
-    margin-top: 30px; 
+    font-size: 1.1rem;
+    color: #555;
+}
+
+
+/* Flash message container */
+.alert-container {
+    position: fixed;
+    top: 80px; /* Adjusted to display lower on the page */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050;
+    max-width: 80%;
+    width: auto;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Alert styling */
+.alert {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #9370DB; /* Change this to match your theme */
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0.95;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.alert .close {
+    color: #fff;
+    opacity: 0.9;
+}
+
+.alert:hover {
+    opacity: 1;
+}
+
+/* Close button styling */
+.alert .close {
+    font-size: 20px;
+    line-height: 20px;
+    text-shadow: none;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.alert .close:hover {
+    opacity: 1;
+}
+
+
+
+/* Contact page styling */
+.contact-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
+}
+
+.contact-container h2 {
+    text-align: center;
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.contact-details, .contact-form {
+    margin-bottom: 2rem;
+}
+
+.contact-details h3, .contact-form h3 {
+    font-size: 1.8rem;
+    color: #3498db;
+    margin-bottom: 1rem;
+}
+
+.contact-details p, .contact-form .form-group label {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.contact-details p {
+    margin-bottom: 0.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #444;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.25);
+    outline: none;
+}
+
+.btn-primary {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #3498db;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
 }

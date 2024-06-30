@@ -1,26 +1,28 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<div class="create-publication-container">
     <h2>Create Publication</h2>
     <form method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
-        <div>
-            {{ form.name.label }} {{ form.name() }}
+        <div class="form-group">
+            {{ form.name.label }} {{ form.name(class="form-control") }}
         </div>
-        <div>
-            {{ form.description.label }} {{ form.description() }}
+        <div class="form-group">
+            {{ form.description.label }} {{ form.description(class="form-control large-input") }}
         </div>
-        <div>
-            {{ form.price.label }} {{ form.price() }}
+        <div class="form-group">
+            {{ form.price.label }} {{ form.price(class="form-control") }}
         </div>
-        <div>
-            {{ form.localization.label }} {{ form.localization() }}
+        <div class="form-group">
+            {{ form.localization.label }} {{ form.localization(class="form-control") }}
         </div>
-        <div>
-            {{ form.image.label }} {{ form.image() }}
+        <div class="form-group">
+            {{ form.image.label }} {{ form.image(class="form-control-file") }}
         </div>
-        <div>
-            {{ form.submit() }}
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
         </div>
     </form>
+</div>
 {% endblock %}

@@ -4,13 +4,12 @@
 {% block title %} SignIn {% endblock %}
 
 {% block content %}
-    <div class="container login-msg">
+    <div class="auth-container">
         <h2> Login Here </h2>
         <hr>
-        <br>
         <form method="POST" action="{{ url_for('login.user_login') }}">
             {{ form.hidden_tag() }}
-            <div class = "container form">
+            <div class = "auth-container">
                 <div> {{ wtf.quick_form(form) }} </div>
                 </div>
 {% endblock %}
