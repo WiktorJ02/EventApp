@@ -11,7 +11,7 @@ admin = Blueprint('admin', __name__)
 def user_list():
     if not current_user.is_admin:
         flash('You do not have permission to access this page.', 'error')
-        return redirect(url_for('main.home'))
+        return redirect(url_for('main.home')) 
 
     search_login = request.args.get('search_login', '')
     search_email = request.args.get('search_email', '')
