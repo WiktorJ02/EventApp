@@ -1,7 +1,9 @@
-body {
+body, html {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    height: 100%; /* Pełna wysokość przeglądarki */
+
 }
 
 header {
@@ -16,7 +18,9 @@ header {
 }
 .container {
     width: 90%;
+    height: 6vh;
     max-width: 1200px;
+    padding: 25px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -40,6 +44,7 @@ nav ul li {
 
 nav ul li a {
     color: rgb(216, 216, 216);
+    font-size: 1.8rem;
     text-decoration: none;
 }
 
@@ -47,7 +52,19 @@ nav ul li a:hover {
     color: white;
     font-weight: bold;
 }
-
+.navbar-brand-title  {
+    font-size: 3rem;
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    color: rgb(153, 153, 153);
+    line-height: 20px;
+    margin-right: 50%;
+}
+.navbar-brand-title:hover {
+    color: white;
+    text-decoration: none;
+}
 .hero {
     background-image: url('../img/photoMenu.jpg');
     background-size: cover;
@@ -180,16 +197,6 @@ body footer, body footer::before, body footer::after {
     display: none !important;  /* Ensures they do not display */
 }
 
-.footer2 p {
-    background-color: #f1f1f1;
-    text-align: center;
-    padding: 1rem 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 15px;  /* Make sure no margin is applied */
-}
 
 
 .btn-secondary {
@@ -839,4 +846,248 @@ hr {
 .btn-primary:hover {
     background-color: #2980b9;
     transform: translateY(-2px);
+}
+/* Login Page Container */
+.login-page {
+    display: flex;
+    width: 50%; /* 50% of the page width */
+    max-width: 800px;
+    height: 50vh;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 5rem auto; /* Center the login page vertically with margin */
+    position: relative;
+}
+
+
+/* Left Panel */
+.login-left {
+    width: 60%;
+    background: radial-gradient(circle at 50% 50%, #8364c3, #8062c0, #6e55ac, #3e3476, #141543, #090631, #07032f); /* made at https://learnui.design/tools/gradient-generator.html */    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 2rem;
+    position: relative;
+}
+
+/* Right Panel */
+.login-right {
+    width: 60%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-right h2 {
+    margin-bottom: 1.5rem;
+    color: #474747;
+    font-size: 3rem;
+}
+.hr-or
+{ 
+    border: 0;
+    width: 100%;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(104, 103, 103, 0), rgba(104, 103, 103, 0.75), rgba(104, 103, 103, 0));
+}
+.login-right form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-right input[type="text"],
+.login-right input[type="password"] {
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1.5rem;
+}
+.login-right label {
+    display: inline-flex; /* Zapewnia elastyczny układ dla elementów wewnętrznych */
+    align-items: center; /* Wyrównanie w pionie */
+    gap: 0.5rem; /* Odstęp między checkboxem a tekstem */
+    font-size: 1.2rem; /* Rozmiar czcionki */
+    cursor: pointer; /* Wskazanie klikalności */
+    color: #646464;
+}
+
+.login-right input[type="checkbox"] {
+    margin: 0; /* Usunięcie domyślnych marginesów */
+    width: 15px; /* Dopasowanie rozmiaru checkboxa */
+    height: 15px; /* Dopasowanie rozmiaru checkboxa */
+    vertical-align: middle; /* Dodatkowe wyrównanie */
+}
+
+
+.login-right button[type="submit"] {
+    padding: 0.8rem;
+    background-color: #51418c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.login-right button[type="submit"]:hover {
+    background-color: #614597;
+}
+
+/* Social Login Buttons */
+.social-login {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.social-login button {
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-login button img {
+    margin-right: 0.5rem;
+    width: 20px;
+    height: 20px;
+}
+
+.social-login button.google {
+    background: #ffffff;
+    color: #333;
+}
+
+.social-login button.google:hover {
+    background: #f4f4f4;
+}
+
+.social-login button.twitter {
+    background: #3d316b;
+    color: white;
+}
+
+.social-login button.twitter:hover {
+    background: #2c2a70;
+}
+
+/* Register Page Layout */
+.register-page {
+    display: flex;
+    width: 50%; /* 50% szerokości strony */
+    max-width: 800px;
+    height: auto; /* Dopasowanie wysokości do treści */
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 5rem auto; /* Wycentrowanie na stronie */
+}
+
+/* Lewy panel */
+.register-left {
+    width: 40%;
+    background: conic-gradient(from 225deg at 50% 70%, #2b2e4a, #3e345e, #57386e, #723b78, #903c7a, #af3d73, #cd3f63, #e84545); /* made at https://learnui.design/tools/gradient-generator.html */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 2rem;
+}
+
+/* Prawy panel */
+.register-right {
+    width: 60%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-right h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.register-form {
+    width: 100%;
+    max-width: 400px;
+}
+
+.register-form input,
+.register-form select {
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    width: 100%;
+}
+
+.register-form button {
+    padding: 0.8rem;
+    background-color: #8000ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+}
+
+.register-form button:hover {
+    background-color: #6900cc;
+}
+
+
+/* Wrapper zajmujący pełną wysokość strony */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%; /* Wymusza pełną wysokość widoku */
+}
+
+/* Główna zawartość, która rozszerza się, aby wypchnąć stopkę */
+main.content {
+    flex: 1; /* Rozciąga się, aby wypełnić przestrzeń między nagłówkiem a stopką */
+    overflow: auto; /* Obsługa przewijania zawartości */
+
+}
+
+/* Stopka */
+.footer2 {
+    display: flex; /* Ustawienie Flexboxa */
+    justify-content: center; /* Wycentrowanie w poziomie */
+    align-items: center; /* Wycentrowanie w pionie */
+    text-align: center; /* Zapewnia, że tekst wewnętrzny jest wyśrodkowany */
+    background-color: #f1f1f1; /* Kolor tła */
+    color: #333; /* Kolor tekstu */
+    padding: 0.5rem; /* Minimalny odstęp wewnętrzny */
+    font-size: 0.875rem; /* Rozmiar czcionki */
+    line-height: 1.2; /* Minimalny odstęp między liniami */
+    width: 100%; /* Pełna szerokość stopki */
+    margin-top: auto; /* Wypychanie stopki na dół */
 }

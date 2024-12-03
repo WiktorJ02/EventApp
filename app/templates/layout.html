@@ -20,7 +20,7 @@
     {% block navbar %}
     <nav class="navbar navbar-inverse">
         <div class="container">
-            <a class="navbar-brand title" href="{{ url_for('main.home') }}">Event App</a>
+            <a class="navbar-brand-title" href="{{ url_for('main.home') }}">Event App</a>
             <ul class="nav navbar-nav pull-right nav-list">
                 <li><a href="{{ url_for('main.home') }}">Home</a></li>
                 {% if current_user.is_authenticated %}
@@ -54,15 +54,16 @@
     {% block content %}
     {% endblock content %}
     </main>
-
     {% block footer %}
     <div class="footer2">
         <p>All rights reserved | Event App © 2024</p>
-    <div class="footer2">
+    </div>
     
     
     {% endblock footer %}
+ 
 </div>
+
 </body>
 {% endblock body %}
 </html>

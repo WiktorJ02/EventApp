@@ -1,12 +1,16 @@
 {% extends 'layout.html' %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-
 {% block content %}
-    <div class = "auth-container">
-        <h2 class = "form"> Registration </h2>
-        <hr>
-        <br>
-        <div> {{ wtf.quick_form(form) }} </div>
+<div class="register-page">
+    <div class="register-left">
+        Join Us!
+    </div>
+    <div class="register-right">
+        <h2>Register Here</h2>
+        <div class="register-form">
+            {{ wtf.quick_form(form) }}
         </div>
+    </div>
+</div>
 {% endblock content %}
