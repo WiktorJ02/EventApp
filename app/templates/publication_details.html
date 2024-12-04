@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+
 {% block content %}
     <div class="publication-details">
         <h2>Publication Details</h2>
@@ -18,6 +19,7 @@
                 {% endif %}
             </div>
         </div>
+
         <div class="actions">
             {% if current_user.is_authenticated and (current_user.id == publication.creating_user_id or current_user.is_admin) %}
                 <a href="{{ url_for('main.update_publication', pub_id=publication.id) }}" class="btn btn-primary">Update Publication</a>
@@ -29,24 +31,27 @@
                 </form>
             {% endif %}
         </div>
+
         <hr>
+
         {% if current_user.is_authenticated %}
             <h3>Leave a Rating:</h3>
-            <form method="post">
+            <form method="POST" action="{{ url_for('main.publication_detail', pub_id=publication.id) }}">
                 {{ form.hidden_tag() }}
                 <div class="form-group">
                     <label for="rating">Rating (1-5):</label>
-                    <input type="number" id="rating" name="rating" class="form-control" min="1" max="5" required>
+                    <input type="number" id="rating" name="rating" class="form-control" min="1" max="5">
                 </div>
                 <div class="form-group">
                     <label for="comment">Comment:</label>
-                    <textarea id="comment" name="comment" class="form-control" maxlength="300" required></textarea>
+                    <textarea id="comment" name="comment" class="form-control" maxlength="300"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         {% else %}
             <p>You need to be logged in to leave a rating.</p>
         {% endif %}
+
         <div>
             <h4>Existing Ratings:</h4>
             <div class="ratings-container">
@@ -59,6 +64,20 @@
                     </div>
                 {% endfor %}
             </div>
+        </div>
+
+        <!-- Ticket Purchase Section -->
+        <div>
+            {% if publication.tickets_left > 0 %}
+                <!-- Separate form action for Buy Ticket -->
+                <form method="POST" action="{{ url_for('main.publication_detail', pub_id=publication.id) }}">
+                    {{ buy_ticket_form.hidden_tag() }}  <!-- CSRF token for protection -->
+                    <button type="submit" class="btn btn-success">Buy Ticket</button>
+                </form>
+                <p>Tickets Left: {{ publication.tickets_left }}</p>  <!-- Display the remaining tickets -->
+            {% else %}
+                <button class="btn btn-danger" disabled>Sold Out</button>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

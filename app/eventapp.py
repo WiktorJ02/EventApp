@@ -24,6 +24,9 @@ class RatingForm(FlaskForm):
 class DeleteForm(FlaskForm):
     submit = SubmitField('Delete')
     
+class BuyTicketForm(FlaskForm):
+    submit = SubmitField('Buy Ticket')
+    
 # Resizing images function
 def resize_image(image_path, output_size=(300, 300)):
     with Image.open(image_path) as img:
@@ -113,45 +116,60 @@ def publication_detail(pub_id):
     publication = Publications.query.get_or_404(pub_id)
     delete_form = DeleteForm()
     form = PublicationForm(obj=publication)
+    buy_ticket_form = BuyTicketForm()  # Separate form for "Buy Ticket"
     creator = Users.query.get(publication.creating_user_id)
     rating = None 
     average_rating = publication.average_rating()
 
     if request.method == 'POST':
-        if not current_user.is_authenticated:
-            flash('You need to be logged in to rate publications.', 'error')
-            return redirect(url_for('main.publication_detail', pub_id=pub_id))
-        
-        rating_value = request.form.get('rating') 
-        comment = request.form.get('comment')
-
-        try:
-            rating = int(rating_value) 
-            if rating < 1 or rating > 5:
-                raise ValueError("Rating must be between 1 and 5.")
-
-            new_rating = Ratings(rating=rating, comment=comment, user_id=current_user.id, publication_id=pub_id)
-            db.session.add(new_rating)
-            db.session.commit()
-
-            flash('Your rating has been submitted!', 'success')
+        if buy_ticket_form.validate_on_submit():  # If it's the Buy Ticket form
+            if publication.tickets_left > 0:
+                publication.tickets_left -= 1
+                db.session.commit()
+                flash("Ticket bought successfully!", "success")
+            else:
+                flash("Sorry, no tickets available.", "danger")
             return redirect(url_for('main.publication_detail', pub_id=pub_id))
 
-        except ValueError as e:
-            flash(str(e), 'error')
-            return redirect(url_for('main.publication_detail', pub_id=pub_id))
-    
+        if 'rating' in request.form:  # If it's the rating form
+            if not current_user.is_authenticated:
+                flash('You need to be logged in to rate publications.', 'error')
+                return redirect(url_for('main.publication_detail', pub_id=pub_id))
+
+            rating_value = request.form.get('rating')  # Rating can be None
+            comment = request.form.get('comment')
+
+            try:
+                if rating_value:
+                    rating = int(rating_value)  # Convert rating to an integer
+                    if rating < 1 or rating > 5:
+                        raise ValueError("Rating must be between 1 and 5.")
+                else:
+                    rating = None  # No rating provided, keep it as None
+
+                if rating is not None:
+                    new_rating = Ratings(rating=rating, comment=comment, user_id=current_user.id, publication_id=pub_id)
+                    db.session.add(new_rating)
+                    db.session.commit()
+
+                flash('Your rating has been submitted!', 'success')
+                return redirect(url_for('main.publication_detail', pub_id=pub_id))
+
+            except ValueError as e:
+                flash(str(e), 'error')
+                return redirect(url_for('main.publication_detail', pub_id=pub_id))
+
     # Fetch ratings for the publication
     ratings = Ratings.query.filter_by(publication_id=pub_id).all()
 
-    return render_template('publication_details.html', publication=publication, average_rating=average_rating, ratings=ratings, creator=creator, delete_form=delete_form, form=form)
+    return render_template('publication_details.html', publication=publication, average_rating=average_rating, ratings=ratings, creator=creator, delete_form=delete_form, form=form, buy_ticket_form=buy_ticket_form)
 
 @main.route('/update_publication/<int:pub_id>', methods=['GET', 'POST'])
 @login_required
 def update_publication(pub_id):
     publication = Publications.query.get_or_404(pub_id)
     form = PublicationForm(obj=publication)
-    
+
     if form.validate_on_submit():
         if form.image.data:
             filename = secure_filename(form.image.data.filename)
@@ -198,3 +216,19 @@ def delete_publication(pub_id):
     flash('Invalid form submission.', 'error')
     return redirect(url_for('main.publication_detail', pub_id=pub_id))
 
+@main.route('/publication/<int:pub_id>', methods=['GET', 'POST'])
+def publication_details(pub_id):
+    publication = Publications.query.get_or_404(pub_id)
+    form = BuyTicketForm()
+    
+    if form.validate_on_submit():  # Check if the form is submitted correctly
+        # Process the form submission here
+        if publication.tickets_left > 0:
+            publication.tickets_left -= 1
+            db.session.commit()
+            flash("Ticket bought successfully!", "success")
+        else:
+            flash("Sorry, no tickets available.", "danger")
+        return redirect(url_for('main.publication_details', pub_id=publication.id))
+    
+    return render_template('publication_details.html', publication=publication, form=form)

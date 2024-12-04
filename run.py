@@ -1,9 +1,11 @@
 from app import create_app, db
+from flask import Flask
 
-if __name__ == '__main__':
-    flask_app = create_app('dev')
-    
-    with flask_app.app_context():
-        db.create_all()
-        
-    flask_app.run() 
+app = create_app('dev')
+
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db, 'app': app}
+
+if __name__ == "__main__":
+    app.run()

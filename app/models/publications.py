@@ -18,6 +18,7 @@ class Publications(db.Model):
     creation_date = db.Column(db.DateTime, default=lambda: datetime.now(pytz.timezone('Europe/Warsaw')))
     image = db.Column(db.String(100))
     is_visible = db.Column(db.Boolean, default=True)
+    tickets_left = db.Column(db.Integer, nullable=False, default=10) 
     
     def __init__(self, name, description, price, localization, image, creating_user_id):
         
