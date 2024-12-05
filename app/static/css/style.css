@@ -13,15 +13,62 @@ header {
 }
 
 .navbar {
-    margin-bottom: 0 !important;
-    border-radius: 0;
+    display: flex; /* Ustaw elementy w jednej linii */
+    align-items: center; /* Wyrównanie w pionie */
+    justify-content: space-between; /* Rozdziel logo i linki */
+    background-color: #222; /* Tło */
+    padding: 0.5rem 1rem; /* Wewnętrzne odstępy */
+    font-family: Arial, sans-serif; /* Czcionka */
+    color: white; /* Kolor tekstu */
 }
+
+/* Logo */
+.navbar .logo {
+    font-size: 1.5rem; /* Większa czcionka */
+    font-weight: bold; /* Pogrubienie */
+    margin: 0; /* Brak marginesów */
+    text-transform: uppercase; /* Wielkie litery */
+    color: white; /* Kolor tekstu */
+    text-decoration: none; /* Usuń podkreślenie */
+    display: flex;
+    align-items: center; /* Wyśrodkuj w pionie */
+}
+
+/* Lista nawigacyjna */
+.navbar .nav-list {
+    display: flex; /* Ustaw linki w jednej linii */
+    list-style: none; /* Usuń znaczniki listy */
+    margin: 0; /* Brak marginesów */
+    padding: 0; /* Brak odstępów wewnętrznych */
+    gap: 1rem; /* Odstępy między elementami */
+}
+
+/* Elementy listy */
+.navbar .nav-list li {
+    display: inline; /* Ustaw elementy w jednej linii */
+}
+
+/* Linki w menu */
+.navbar .nav-list li a {
+    color: white; /* Kolor tekstu */
+    text-decoration: none; /* Usuń podkreślenie */
+    font-size: 1.5rem; /* Rozmiar czcionki */
+    padding: 0.5rem 1rem; /* Wewnętrzne odstępy */
+    transition: background-color 0.3s ease; /* Efekt na hover */
+}
+
+/* Efekt hover na linkach */
+.navbar .nav-list li a:hover {
+    background-color: #444; /* Kolor tła na hover */
+    border-radius: 5px; /* Zaokrąglenie rogów */
+}
+
 .container {
-    width: 90%;
-    height: 6vh;
+
+    height: 8vh;
     max-width: 1200px;
-    padding: 25px;
-    margin: 0 auto;
+    padding: 10px;
+    margin: 0 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -54,9 +101,7 @@ nav ul li a:hover {
 }
 .navbar-brand-title  {
     font-size: 3rem;
-    float: left;
-    height: 50px;
-    padding: 15px 15px;
+
     color: rgb(153, 153, 153);
     line-height: 20px;
     margin-right: 50%;
@@ -116,6 +161,7 @@ nav ul li a:hover {
 
 .search-section input[type="text"] {
     flex: 1;
+    font-size: 1.3rem;
     padding: 0.5rem;
 }
 
@@ -250,7 +296,7 @@ body footer, body footer::before, body footer::after {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    font-size: 1rem;
+    font-size: 2rem;
     color: #333;
     font-family: 'Arial', sans-serif;
     background-color: #f9f9f9;
@@ -852,7 +898,7 @@ hr {
     display: flex;
     width: 50%; /* 50% of the page width */
     max-width: 800px;
-    height: 50vh;
+    height: 60vh;
     background: #ffffff;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -956,7 +1002,7 @@ hr {
 .social-login button {
     padding: 0.8rem;
     margin-bottom: 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid #a7a7a7;
     border-radius: 4px;
     font-size: 1.5rem;
     cursor: pointer;
@@ -977,16 +1023,16 @@ hr {
 }
 
 .social-login button.google:hover {
-    background: #f4f4f4;
+    background: #d3d3d3;
 }
 
 .social-login button.twitter {
-    background: #3d316b;
-    color: white;
+    background: #ffffff;
+    color: #333;
 }
 
 .social-login button.twitter:hover {
-    background: #2c2a70;
+    background: #d3d3d3;
 }
 
 /* Register Page Layout */
@@ -1091,3 +1137,125 @@ main.content {
     width: 100%; /* Pełna szerokość stopki */
     margin-top: auto; /* Wypychanie stopki na dół */
 }
+
+.navbar{
+    margin: 0;
+}
+
+
+
+
+
+
+/* Wyśrodkowanie sekcji wyszukiwania */
+.search-section {
+    display: flex;
+    justify-content: center;
+    background-color: #f9f9f9;
+    padding: 2rem 0; /* Dodatkowa przestrzeń na górze i dole */
+}
+
+.search-section .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Wyśrodkowanie zawartości w poziomie */
+    gap: 1rem; /* Odstępy między elementami */
+    max-width: 1200px; /* Ograniczenie szerokości */
+}
+
+/* Wyśrodkowanie kart */
+.cards-section {
+    display: flex;
+    justify-content: center; /* Wyśrodkowanie kart w poziomie */
+    background-color: #f9f9f9;
+    padding: 2rem 0; /* Dodatkowa przestrzeń */
+}
+
+.cards-section .container {
+    display: flex;
+    flex-wrap: wrap; /* Łamanie wierszy */
+    justify-content: center; /* Wyśrodkowanie zawartości */
+    gap: 1.5rem; /* Odstępy między kartami */
+    max-width: 1200px; /* Ograniczenie szerokości kontenera */
+}
+
+/* Styl dla pojedynczej karty */
+.card {
+    flex: 0 1 calc(33.33% - 1rem); /* Trzy karty na wiersz z odstępami */
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Dopasowanie szerokości elementów wewnątrz karty */
+    margin-bottom: 20px;
+    max-width: 350px; /* Ograniczenie szerokości karty */
+}
+
+/* Styl obrazków w kartach */
+.card img {
+    width: 100%;
+    height: 200px; /* Stała wysokość obrazka */
+    object-fit: cover; /* Dostosowanie obrazka */
+}
+
+/* Zawartość karty */
+.card-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Styl przycisków */
+.button {
+    background-color: #9370DB;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    margin-top: auto; /* Przycisk na dole karty */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #5750d4;
+}
+
+
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.publications-section {
+    margin-top: 2rem;
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.publications-section h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.publications-section .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+

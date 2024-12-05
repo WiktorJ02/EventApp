@@ -42,10 +42,12 @@
         </div>
     </form>
 
-    <h2>Your Publications</h2>
-    <div class="container">
-        <div class="row">
-            {% for pub in publications %}
+    <!-- Publications Section -->
+    <div class="publications-section">
+        <h2>Your Publications</h2>
+        <div class="container">
+            <div class="row">
+                {% for pub in publications %}
                 <div class="col-md-4">
                     <a href="{{ url_for('main.publication_detail', pub_id=pub.id) }}" class="publication-link">
                         <div class="publication-item">
@@ -57,10 +59,12 @@
                         </div>
                     </a>
                 </div>
-            {% else %}
+                {% else %}
                 <p>No publications found.</p>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
+
 {% endblock %}
